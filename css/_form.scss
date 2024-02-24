@@ -1,0 +1,60 @@
+form, .xsd2form {
+	border: 2px dotted red;
+	padding: 1em;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: .25em;
+	> div {
+		display: grid;
+		grid-column: 1 / -1;
+		grid-template-columns: subgrid;
+		background-color: hsl(var(--hue), var(--sat), 90%);
+		padding: .5em;
+		border-radius: .5em;
+		position: relative;
+	}
+	div.hint {
+		font-size: smaller;
+		font-style: italic;
+		position: absolute;
+		background-color: hsl(var(--hue), var(--sat), 40%);
+		color: white;
+		border-radius: .5em;
+		line-height: 1;
+
+		right: 0;
+		overflow: hidden;
+		z-index: 1000;
+		padding: .5em;
+		box-shadow: 1px 1px 1px #0006;
+		>p {
+			transition: 1s;
+			margin: 0;
+			margin-right: 1em;
+		}
+		&:focus {
+			z-index: 2000;
+		}
+		&:not(:focus)>p {
+			display: none;
+		}
+		// &:not(:active) {
+			// width: 0;
+		// }
+		&::before {
+			position: absolute;
+			top:.05em;
+			right:.05em;
+			content: '!';
+			font-style: normal;
+			width: 1em;
+			height: 1em;
+			line-height: 1;
+			text-align: center;
+
+		}
+	}
+	:invalid {
+		outline: 1px dashed red;
+	}
+}

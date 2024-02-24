@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>XSD 2 FORM</title>
+	<link rel="stylesheet" href="css/style.css">
+	<style>
+		body:not(:focus) {
+			h6 {
+				display: none;
+			}
+		}
+		/* body:focus { */
+			/* background-color: #ffe; */
+		/* } */
+		h6 {
+			margin: 0;
+			position: absolute;
+		}
+		.error {
+			color: red;
+			background-color: pink;
+		}
+	</style>
+	<script type="module">
+		import { Xsl } from './src/index.js';
+		const xsl = new Xsl('xsd2form.xsl');
+		xsl.transform('../questiontypes/question.xsd').then(doc => {
+			console.log(doc);
+			app.appendChild(doc);
+		});
+	</script>
+</head>
+
+<body tabindex="0">
+	<h1>XSD 2 FORM</h1>
+	<h2>A form example</h2>
+	<div id="app"></div>
+</body>
+
+</html>

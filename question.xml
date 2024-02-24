@@ -1,0 +1,199 @@
+<questiontype name="question">
+	<!-- <texts>
+		<text lang="en" label="Question" description="The simplest type of question" />
+		<text lang="fr" label="Question" description="Type de question le plus simple" />
+		<text lang="es" label="Pregunta" description="El tipo más simple de pregunta" />
+		<text lang="it" label="Domanda" description="Il tipo più semplice di domanda" />
+		<text lang="de" label="Frage" description="Der einfachste Fragetyp" />
+	</texts> -->
+	<fields>
+		<field name="id" type="attribute|slug" level="0">
+			<!-- <texts>
+				<text lang="en" label="Unique identifier" description="A unique identifier for the question" error="The value is not valid." />
+				<text lang="fr" label="Identifiant unique" description="Un identifiant unique pour la question" error="La valeur n'est pas valide." />
+				<text lang="es" label="Identificador único" description="Un identificador único para la pregunta" error="El valor no es válido." />
+				<text lang="it" label="Identificatore unico" description="Un identificatore unico per la domanda" error="Il valore non è valido." />
+				<text lang="de" label="Eindeutige Kennung" description="Eine eindeutige Kennung für die Frage" error="Der Wert ist ungültig." />
+			</texts> -->
+			<validation required="true" pattern="[a-zA-Z0-9_\-\.]+"></validation>
+			<form>
+				<input type="text" name="{{name}}" id="{{name}}" pattern="{{validation.pattern}}" />
+			</form>
+		</field>
+		<field name="difficulty" type="attribute|number" level="2">
+			<!-- <texts>
+				<text lang="en" label="Difficulty level" description="A number between 0 and 10" error="The value is not valid." />
+				<text lang="fr" label="Niveau de difficulté" description="Un nombre entre 0 et 10" error="La valeur n'est pas valide." />
+				<text lang="es" label="Nivel de dificultad" description="Un número entre 0 y 10" error="El valor no es válido." />
+				<text lang="it" label="Livello di difficoltà" description="Un numero tra 0 e 10" error="Il valore non è valido." />
+				<text lang="de" label="Schwierigkeitsgrad" description="Eine Zahl zwischen 0 und 10" error="Der Wert ist ungültig." />
+			</texts> -->
+			<validation required="true" min="0" max="10" default="5"></validation>
+			<form>
+				<input type="number" name="{{name}}" id="{{name}}" min="{{validation.min}}" max="{{validation.max}}" value="{{validation.default}}"/>
+			</form>
+		</field>
+		<field name="duration" type="attribute|number" level="1">
+			<!-- <texts>
+				<text lang="en" label="Duration" description="Estimated duration in seconds" error="The value is not valid." />
+				<text lang="fr" label="Durée" description="Durée estimée en secondes" error="La valeur n'est pas valide." />
+				<text lang="es" label="Duración" description="Duración estimada en segundos" error="El valor no es válido." />
+				<text lang="it" label="Durata" description="Durata stimata in secondi" error="Il valore non è valido." />
+				<text lang="de" label="Dauer" description="Geschätzte Dauer in Sekunden" error="Der Wert ist ungültig." />
+			</texts> -->
+			<validation required="true" min="0" default="60"></validation>
+			<form>
+				<input type="number" name="{{name}}" id="{{name}}" min="{{validation.min}}" value="{{value||validation.default}}"/>
+			</form>
+		</field>
+		<field name="keywords" type="text" level="1">
+			<!-- <texts>
+				<text lang="en" label="Keywords" description="A list of keywords" error="The value is not valid." />
+				<text lang="fr" label="Mots-clés" description="Une liste de mots-clés" error="La valeur n'est pas valide." />
+				<text lang="es" label="Palabras clave" description="Una lista de palabras clave" error="El valor no es válido." />
+				<text lang="it" label="Parole chiave" description="Un elenco di parole chiave" error="Il valore non è valido." />
+				<text lang="de" label="Stichworte" description="Eine Liste von Stichworten" error="Der Wert ist ungültig." />
+			</texts> -->
+			<validation required="false"></validation>
+			<form>
+				<input type="text" name="{{name}}" id="{{name}}" value="{{value||'wow'}}"/>
+			</form>
+		</field>
+		<field name="name" type="text" level="1">
+			<!-- <texts>
+				<text lang="en" label="Name" description="The name of the question" error="The value is not valid." />
+				<text lang="fr" label="Nom" description="Le nom de la question" error="La valeur n'est pas valide." />
+				<text lang="es" label="Nombre" description="El nombre de la pregunta" error="El valor no es válido." />
+				<text lang="it" label="Nome" description="Il nome della domanda" error="Il valore non è valido." />
+				<text lang="de" label="Name" description="Der Name der Frage" error="Der Wert ist ungültig." />
+			</texts> -->
+			<validation required="true"></validation>
+			<form>
+				<input type="text" name="{{name}}" id="{{name}}" value="{{value||''}}"/>
+			</form>
+		</field>
+		<field name="wording" type="text" level="0">
+			<texts>
+				<text lang="en" label="Question text" description="The question text" error="The value is not valid." />
+				<text lang="fr" label="Texte de la question" description="Le texte de la question" error="La valeur n'est pas valide." />
+				<text lang="es" label="Texto de la pregunta" description="El texto de la pregunta" error="El valor no es válido." />
+				<text lang="it" label="Testo della domanda" description="Il testo della domanda" error="Il valore non è valido." />
+				<text lang="de" label="Fragetext" description="Der Fragetext" error="Der Wert ist ungültig." />
+			</texts>
+			<validation required="true"></validation>
+			<form>
+				<textarea name="{{name}}" id="{{name}}" cols="30" rows="5">{{value||''}}</textarea>
+			</form>
+		</field>
+		<field name="answers" type="complex" level="0">
+			<row>
+				<field name="type" type="attribute|text" level="0">
+					<texts>
+						<text lang="en" label="Type" description="The type of the answer" error="The value is not valid." />
+						<text lang="fr" label="Type" description="Le type de la réponse" error="La valeur n'est pas valide." />
+						<text lang="es" label="Tipo" description="El tipo de la respuesta" error="El valor no es válido." />
+						<text lang="it" label="Tipo" description="Il tipo della risposta" error="Il valore non è valido." />
+						<text lang="de" label="Typ" description="Der Typ der Antwort" error="Der Wert ist ungültig." />
+					</texts>
+					<validation required="true"></validation>
+					<form>
+						<input type="text" name="{{name}}" id="{{name}}" value="{{value||''}}"/>
+					</form>
+				</field>
+				<field name="spaces" type="attribute|boolean" level="0">
+					<texts>
+						<text lang="en" label="Spaces" description="Are spaces significant?" error="The value is not valid." />
+						<text lang="fr" label="Espaces" description="Les espaces sont-ils significatifs ?" error="La valeur n'est pas valide." />
+						<text lang="es" label="Espacios" description="¿Son significativos los espacios?" error="El valor no es válido." />
+						<text lang="it" label="Spazi" description="Gli spazi sono significativi?" error="Il valore non è valido." />
+						<text lang="de" label="Leerzeichen" description="Sind Leerzeichen signifikant?" error="Der Wert ist ungültig." />
+					</texts>
+					<validation required="true"></validation>
+					<form>
+						<input type="checkbox" name="{{name}}" id="{{name}}" value="true" checked="{{value||false}}"/>
+					</form>
+				</field>
+				<field name="case-sensitive" type="attribute|boolean" level="0">
+					<texts>
+						<text lang="en" label="Case sensitive" description="Is the case significant?" error="The value is not valid." />
+						<text lang="fr" label="Sensible à la casse" description="La casse est-elle significative ?" error="La valeur n'est pas valide." />
+						<text lang="es" label="Sensible a mayúsculas y minúsculas" description="¿Es significativo el caso?" error="El valor no es válido." />
+						<text lang="it" label="Sensibile alle maiuscole e minuscole" description="Le maiuscole e le minuscole sono significative?" error="Il valore non è valido." />
+						<text lang="de" label="Groß-/Kleinschreibung beachten" description="Ist die Groß-/Kleinschreibung signifikant?" error="Der Wert ist ungültig." />
+					</texts>
+					<validation required="true"></validation>
+					<form>
+						<input type="checkbox" name="{{name}}" id="{{name}}" value="true" checked="{{value||false}}"/>
+					</form>
+				</field>
+				<field name="fraction" type="attribute|number" level="0">
+					<texts>
+						<text lang="en" label="Fraction" description="The fraction of the score" error="The value is not valid." />
+						<text lang="fr" label="Fraction" description="La fraction du score" error="La valeur n'est pas valide." />
+						<text lang="es" label="Fracción" description="La fracción de la puntuación" error="El valor no es válido." />
+						<text lang="it" label="Frazione" description="La frazione del punteggio" error="Il valore non è valido." />
+						<text lang="de" label="Anteil" description="Der Anteil der Punktzahl" error="Der Wert ist ungültig." />
+					</texts>
+					<validation required="true" min="0" max="1" default="1"></validation>
+					<form>
+						<input type="number" name="{{name}}" id="{{name}}" min="{{validation.min}}" max="{{validation.max}}" value="{{value||validation.default}}"/>
+					</form>
+				</field>
+				<field name="answer" type="text" level="0">
+					<texts>
+						<text lang="en" label="Answer" description="The answer" error="The value is not valid." />
+						<text lang="fr" label="Réponse" description="La réponse" error="La valeur n'est pas valide." />
+						<text lang="es" label="Respuesta" description="La respuesta" error="El valor no es válido." />
+						<text lang="it" label="Risposta" description="La risposta" error="Il valore non è valido." />
+						<text lang="de" label="Antwort" description="Die Antwort" error="Der Wert ist ungültig." />
+					</texts>
+					<validation required="true"></validation>
+					<form>
+						<input type="text" name="{{name}}" id="{{name}}" value="{{value||''}}"/>
+					</form>
+				</field>
+			</row>
+			<texts>
+				<text lang="en" label="Answer" description="The answer" error="The value is not valid." />
+				<text lang="fr" label="Réponse" description="La réponse" error="La valeur n'est pas valide." />
+				<text lang="es" label="Respuesta" description="La respuesta" error="El valor no es válido." />
+				<text lang="it" label="Risposta" description="La risposta" error="Il valore non è valido." />
+				<text lang="de" label="Antwort" description="Die Antwort" error="Der Wert ist ungültig." />
+			</texts>
+			<validation required="true"></validation>
+			<form>
+				<input type="text" name="{{name}}" id="{{name}}" value="{{value||''}}"/>
+			</form>
+		</field>
+	</fields>
+	<import>
+		<format name="xml" extension="xml"></format>
+		<format name="cloze" extension="txt"></format>
+		<format name="gift" extension="txt"></format>
+	</import>
+	<export>
+		<format name="xml" extension="xml"></format>
+		<format name="cloze" extension="txt"></format>
+		<format name="gift" extension="txt"></format>
+	</export>
+	<use>
+		<input type="text" name="{{id}}" id="{{id}}" />
+	</use>
+	<example>
+		<question value="10" type="question" name="Le cheval de Napoléon" id="abc123" difficulty="5" importance="1" duration="120" keywords="a b c">
+			<wording>Quelle était la <b>couleur</b> du cheval blanc de Napoléon ?</wording>
+			<explanations>
+				<figure>blabla</figure>
+			</explanations>
+			<footer>blabla</footer>
+			<answers type="text" spaces="false" case-sensitive="false">
+				<answer type="text" white-spaces="false" case-sensitive="false" fraction="1">blanc</answer>
+				<answer type="text" white-spaces="false" case-sensitive="false" fraction=".1">noir</answer>
+				<answer type="text" white-spaces="false" case-sensitive="false" fraction=".1">moire</answer>
+			</answers>
+			<form>
+				<input type="text" name="{{id}}" id="{{id}}" />
+			</form>
+		</question>
+	</example>
+</questiontype>

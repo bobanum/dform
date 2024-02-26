@@ -1,0 +1,26 @@
+header {
+	display: flex;
+	height: 7em;
+	align-items: center;
+	padding: 1em;
+	img {
+		height: 100%
+	} 
+	h1 {
+		font-size: 2.5em;
+		letter-spacing: -.1ch;
+		line-height: 1;
+		:first-child {
+			color: var(--red);
+		}
+		:last-child {
+			background-color: var(--blue);
+			color: white;
+			padding: 0 .25ch;
+			transform: skewX(-10deg);
+			display: inline-block;
+			margin-left: .2ch;
+		}
+	}
+	border-bottom: 3px solid var(--blue);
+}

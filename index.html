@@ -6,36 +6,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>XSD 2 FORM</title>
 	<link rel="stylesheet" href="css/style.css">
-	<style>
-		body:not(:focus) {
-			h6 {
-				display: none;
-			}
-		}
-		/* body:focus { */
-			/* background-color: #ffe; */
-		/* } */
-		h6 {
-			margin: 0;
-			position: absolute;
-		}
-		.error {
-			color: red;
-			background-color: pink;
-		}
-	</style>
 	<script type="module">
-		import { Xsl } from './src/index.js';
-		const xsl = new Xsl('xsd2form.xsl');
-		xsl.transform('../questiontypes/question.xsd').then(doc => {
+		import { Xsl } from './src_js/index.js';
+		const xsl = new Xsl('./src_xsl/xsd2form.xsl');
+		xsl.transform('examples/question.xsd').then(doc => {
 			console.log(doc);
 			app.appendChild(doc);
 		});
+		import {Form} from './src_js/Form.js';
+		window.Form = Form;
 	</script>
 </head>
 
 <body tabindex="0">
-	<h1>XSD 2 FORM</h1>
+	<header>
+		<img src="img/dform.svg" alt="">
+		<h1><span>XSD</span>2<span>FORM</span></h1>
+	</header>
 	<h2>A form example</h2>
 	<div id="app"></div>
 </body>

@@ -2,6 +2,8 @@
   --hue: 200;
   --sat: 50%;
   --lig: 50%;
+  --red: #8f1c1c;
+  --blue: #303075;
 }
 
 html {
@@ -10,6 +12,39 @@ html {
   line-height: 1.5;
   color: #333;
   background-color: hsl(var(--hue), var(--sat), 95%);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  height: 7em;
+  align-items: center;
+  padding: 1em;
+  border-bottom: 3px solid var(--blue);
+}
+header img {
+  height: 100%;
+}
+header h1 {
+  font-size: 2.5em;
+  letter-spacing: -0.1ch;
+  line-height: 1;
+}
+header h1 :first-child {
+  color: var(--red);
+}
+header h1 :last-child {
+  background-color: var(--blue);
+  color: white;
+  padding: 0 0.25ch;
+  transform: skewX(-10deg);
+  display: inline-block;
+  margin-left: 0.2ch;
 }
 
 form, .xsd2form {
@@ -66,4 +101,40 @@ form div.hint::before, .xsd2form div.hint::before {
 }
 form :invalid, .xsd2form :invalid {
   outline: 1px dashed red;
+}
+
+div.group, div.group > div {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1/-1;
+}
+
+div.template {
+  padding: 0;
+  z-index: 2000;
+}
+div.template button.add {
+  border: solid;
+}
+div.template::before {
+  content: var(--label);
+  font-size: smaller;
+  font-style: italic;
+}
+div.template > :not(.add) {
+  display: none;
+}
+
+body:not(:focus) h6 {
+  display: none;
+}
+
+h6 {
+  margin: 0;
+  position: absolute;
+}
+
+.error {
+  color: red;
+  background-color: pink;
 }

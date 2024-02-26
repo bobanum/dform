@@ -39,11 +39,21 @@
 		</select>
 	</xsl:template>
 	<xsl:template match="xs:restriction/xs:enumeration">
+		<xsl:variable name="value">
+			<xsl:call-template name="documentation">
+				<xsl:with-param name="attribute" select="'value'"/>
+				<xsl:with-param name="default" select="'@value'"/>
+			</xsl:call-template>
+		</xsl:variable>
 		<option>
 			<xsl:attribute name="value">
-				<xsl:value-of select="@value"/>
+				<xsl:value-of select="$value"/>
 			</xsl:attribute>
-			<xsl:value-of select="(xs:annotation/xs:documentation[1]|@value)[last()]"/>
+			<xsl:call-template name="documentation">
+				<xsl:with-param name="attribute" select="'label'"/>
+				<xsl:with-param name="default" select="''"/>
+			</xsl:call-template>
+			<!-- <xsl:value-of select="(xs:annotation/xs:documentation[1]|@value)[last()]"/> -->
 		</option>
 	</xsl:template>
 

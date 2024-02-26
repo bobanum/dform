@@ -58,3 +58,28 @@ form, .xsd2form {
 		outline: 1px dashed red;
 	}
 }
+div.group {
+	&, & > div {
+		display: grid;
+		grid-template-columns: subgrid;
+		grid-column: 1 / -1;
+	}
+}
+div.template {
+	// display: contents;
+	padding: 0;
+	z-index: 2000;
+	button.add {
+		border:solid;
+	}
+	&::before {
+		// position: absolute;
+		content: var(--label);
+		font-size: smaller;
+		font-style: italic;
+	}
+	> :not(.add) {
+		display: none;
+		// opacity: .5;
+	}
+}

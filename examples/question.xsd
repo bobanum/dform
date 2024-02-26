@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:df="https://bobanum.github.io/dform" xml:lang="fr">
+    <xs:annotation>
+        <xs:appinfo></xs:appinfo>
+    </xs:annotation>
+    <xs:complexType name="QuestionType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en" add="Add" hint="The simplest type of question" />
+            <xs:documentation xml:lang="fr" delete="Question" hint="Type de question le plus simple" />
+            <xs:documentation xml:lang="es" label="Pregunta" hint="El tipo más simple de pregunta" />
+            <xs:documentation xml:lang="it" label="Domanda" hint="Il tipo più semplice di domanda" />
+            <xs:documentation xml:lang="de" label="Frage" hint="Der einfachste Fragetyp" />
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="wording" type="xs:string" minOccurs="1" maxOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en" label="Wording" hint="The wording of the question" />
+                    <xs:documentation xml:lang="fr" label="Énoncé" hint="L'énoncé de la question" />
+                    <xs:documentation xml:lang="es" label="Enunciado" hint="El enunciado de la pregunta" />
+                    <xs:documentation xml:lang="it" label="Enunciato" hint="L'enunciato della domanda" />
+                    <xs:documentation xml:lang="de" label="Formulierung" hint="Die Formulierung der Frage" />
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="details" type="df:html" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en" label="Details" hint="Additional details about the question" />
+                    <xs:documentation xml:lang="fr" label="Détails" hint="Détails supplémentaires sur la question" />
+                    <xs:documentation xml:lang="es" label="Detalles" hint="Detalles adicionales sobre la pregunta" />
+                    <xs:documentation xml:lang="it" label="Dettagli" hint="Dettagli aggiuntivi sulla domanda" />
+                    <xs:documentation xml:lang="de" label="Details" hint="Zusätzliche Details zur Frage" />
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="footer" type="df:html" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en" label="Footer" hint="Footer of the question" />
+                    <xs:documentation xml:lang="fr" label="Pied de page" hint="Pied de page de la question" />
+                    <xs:documentation xml:lang="es" label="Pie de página" hint="Pie de página de la pregunta" />
+                    <xs:documentation xml:lang="it" label="Piè di pagina" hint="Piè di pagina della domanda" />
+                    <xs:documentation xml:lang="de" label="Fußzeile" hint="Fußzeile der Frage" />
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="answers">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="answer" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="type" type="xs:string"/>
+                                        <xs:attribute name="white-spaces" type="xs:boolean"/>
+                                        <xs:attribute name="case-sensitive" type="xs:boolean"/>
+                                        <xs:attribute name="fraction" type="xs:decimal"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="type" type="xs:string"/>
+                    <xs:attribute name="spaces" type="xs:boolean"/>
+                    <xs:attribute name="case-sensitive" type="xs:boolean"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="form">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="input">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="type" type="xs:string"/>
+                                        <xs:attribute name="name" type="xs:string"/>
+                                        <xs:attribute name="id" type="xs:string"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="value" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Value" hint="The value of the question" >test</xs:documentation>
+                <xs:documentation xml:lang="fr" label="Valeur" hint="La valeur de la question" />
+                <xs:documentation xml:lang="es" label="Valor" hint="El valor de la pregunta" />
+                <xs:documentation xml:lang="it" label="Valore" hint="Il valore della domanda" />
+                <xs:documentation xml:lang="de" label="Wert" hint="Der Wert der Frage" />
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="type">
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Type" hint="The type of the question" />
+                <xs:documentation xml:lang="fr" label="Type" hint="Le type de la question" />
+                <xs:documentation xml:lang="es" label="Tipo" hint="El tipo de la pregunta" />
+                <xs:documentation xml:lang="it" label="Tipo" hint="Il tipo della domanda" />
+                <xs:documentation xml:lang="de" label="Typ" hint="Der Typ der Frage" />
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="option1">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="en" value="Option 1" label="The first option" />
+                            <xs:documentation xml:lang="fr" value="Option 1" label="La première option" />
+                            <xs:documentation xml:lang="es" value="Opción 1" label="La primera opción" />
+                            <xs:documentation xml:lang="it" value="Opzione 1" label="La prima opzione" />
+                            <xs:documentation xml:lang="de" value="Option 1" label="Die erste Option" />
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="option2">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="en" value="Option 2" label="The second option" />
+                            <xs:documentation xml:lang="fr" value="Option 2" label="La deuxième option" />
+                            <xs:documentation xml:lang="es" value="Opción 2" label="La segunda opción" />
+                            <xs:documentation xml:lang="it" value="Opzione 2" label="La seconda opzione" />
+                            <xs:documentation xml:lang="de" value="Option 2" label="Die zweite Option" />
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="option3">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="en" label="The third option" />
+                            <xs:documentation xml:lang="fr" label="La troisième option" />
+                            <xs:documentation xml:lang="es" label="La tercera opción" />
+                            <xs:documentation xml:lang="it" label="La terza opzione" />
+                            <xs:documentation xml:lang="de" label="Die dritte Option" />
+                        </xs:annotation>  
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Name" hint="The name of the question" />
+                <xs:documentation xml:lang="fr" label="Nom" hint="Le nom de la question" />
+                <xs:documentation xml:lang="es" label="Nombre" hint="El nombre de la pregunta" />
+                <xs:documentation xml:lang="it" label="Nome" hint="Il nome della domanda" />
+                <xs:documentation xml:lang="de" label="Name" hint="Der Name der Frage" />
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="id" type="xs:string">
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Unique identifier" hint="A unique identifier for the question" />
+                <xs:documentation xml:lang="fr" label="Identifiant unique" hint="Un identifiant unique pour la question" />
+                <xs:documentation xml:lang="es" label="Identificador único" hint="Un identificador único para la pregunta" />
+                <xs:documentation xml:lang="it" label="Identificatore unico" hint="Un identificatore unico per la domanda" />
+                <xs:documentation xml:lang="de" label="Eindeutige Kennung" hint="Eine eindeutige Kennung für die Frage" />
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="difficulty" type="xs:integer">
+            <xs:restriction base="xs:integer">
+                <xs:minInclusive value="0"/>
+                <xs:maxInclusive value="10"/>
+            </xs:restriction>
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Difficulty level" hint="A number between 0 and 10" />
+                <xs:documentation xml:lang="fr" label="Niveau de difficulté" hint="Un nombre entre 0 et 10" />
+                <xs:documentation xml:lang="es" label="Nivel de dificultad" hint="Un número entre 0 y 10" />
+                <xs:documentation xml:lang="it" label="Livello di difficoltà" hint="Un numero tra 0 e 10" />
+                <xs:documentation xml:lang="de" label="Schwierigkeitsgrad" hint="Eine Zahl zwischen 0 und 10" />
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="relevance" type="xs:integer">
+            <xs:restriction base="xs:integer">
+                <xs:minInclusive value="0"/>
+                <xs:maxInclusive value="10"/>
+            </xs:restriction>
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Relevance" hint="A number between 0 and 10" />
+                <xs:documentation xml:lang="fr" label="Pertinence" hint="Un nombre entre 0 et 10" />
+                <xs:documentation xml:lang="es" label="Pertinencia" hint="Un número entre 0 y 10" />
+                <xs:documentation xml:lang="it" label="Rilevanza" hint="Un numero tra 0 e 10" />
+                <xs:documentation xml:lang="de" label="Relevanz" hint="Eine Zahl zwischen 0 und 10" />
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="duration" type="xs:integer">
+            <xs:restriction base="xs:integer">
+                <xs:minInclusive value="0"/>
+            </xs:restriction>
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Duration" hint="Estimated duration in seconds" />
+                <xs:documentation xml:lang="fr" label="Durée" hint="Durée estimée en secondes" />
+                <xs:documentation xml:lang="es" label="Duración" hint="Duración estimada en segundos" />
+                <xs:documentation xml:lang="it" label="Durata" hint="Durata stimata in secondi" />
+                <xs:documentation xml:lang="de" label="Dauer" hint="Geschätzte Dauer in Sekunden" />
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="keywords" type="xs:string">
+            <xs:restriction>
+                <xs:pattern value="(\w+)(,\s*\w+)*"/>
+            </xs:restriction>
+            <xs:annotation>
+                <xs:documentation xml:lang="en" label="Keywords" hint="A list of keywords" />
+                <xs:documentation xml:lang="fr" label="Mots-clés" hint="Une liste de mots-clés" />
+                <xs:documentation xml:lang="es" label="Palabras clave" hint="Una lista de palabras clave" />
+                <xs:documentation xml:lang="it" label="Parole chiave" hint="Un elenco di parole chiave" />
+                <xs:documentation xml:lang="de" label="Stichworte" hint="Eine Liste von Stichworten" />
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="question" type="QuestionType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en" label="Question" hint="The simplest type of question" />
+            <xs:documentation xml:lang="fr" label="Question" hint="Type de question le plus simple" />
+            <xs:documentation xml:lang="es" label="Pregunta" hint="El tipo más simple de pregunta" />
+            <xs:documentation xml:lang="it" label="Domanda" hint="Il tipo più semplice di domanda" />
+            <xs:documentation xml:lang="de" label="Frage" hint="Der einfachste Fragetyp" />
+        </xs:annotation>
+    </xs:element>
+
+</xs:schema>

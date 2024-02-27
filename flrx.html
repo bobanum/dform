@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.container {
+			font-size: 2em;
+			display: flex;
+			flex-wrap: wrap;
+			gap: .5em;
+			justify-content: space-around;
+			align-content: center;
+			justify-items: center;
+			height: 90vh;
+			> div {
+				border: 1px solid red;
+				flex-grow: 1;
+				display: flex;
+				gap: .5em;
+				> span {
+					background-color: #ff0;
+					&:last-child {
+						flex-grow: 1;
+					}
+				}
+				&:last-child {
+					margin-right:auto;
+					flex-grow: 0;
+				}
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div><span>Voluptate.</span><span>Enim.</span></div>
+		<div><span>Ab.</span><span>Quas.</span></div>
+		<div><span>Ratione!</span><span>Tempore?</span></div>
+		<div><span>Dicta?</span><span>Dolorem?</span></div>
+		<div><span>Libero.</span><span>Nemo.</span></div>
+		<div><span>Cumque?</span><span>Similique.</span></div>
+		<div><span>Molestiae.</span><span>Blanditiis.</span></div>
+		<div><span>Dicta.</span><span>Veniam.</span></div>
+		<div><span>Voluptatem.</span><span>Deserunt!</span></div>
+		<div><span>Debitis?</span><span>A?</span></div>
+		<div><span>Id?</span><span>Eius!</span></div>
+		<div><span>Praesentium.</span><span>Cupiditate.</span></div>
+		<div><span>Expedita?</span><span>Fugit!</span></div>
+		<div><span>Sed.</span><span>Amet.</span></div>
+		<div><span>Autem?</span><span>Enim?</span></div>
+		<div><span>Ut.</span><span>Qui?</span></div>
+		<div><span>Libero.</span><span>Reprehenderit!</span></div>
+		<div><span>Quasi?</span><span>Tempore.</span></div>
+		<div><span>Rerum.</span><span>Pariatur.</span></div>
+		<div><span>Mollitia!</span><span>Debitis.</span></div>
+	</div>
+</body>
+</html>

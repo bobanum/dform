@@ -1,19 +1,27 @@
-form, .xsd2form {
+.row {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: subgrid;
+	background-color: hsl(var(--hue), var(--sat), 50%, .1);
+	padding: .5em;
+	border-radius: .5em;
+	position: relative;
+}
+
+form,
+.xsd2form {
 	border: 2px dotted red;
 	padding: 1em;
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	gap: .25em;
-	> div {
-		display: grid;
-		grid-column: 1 / -1;
-		grid-template-columns: subgrid;
-		background-color: hsl(var(--hue), var(--sat), 90%);
-		padding: .5em;
-		border-radius: .5em;
-		position: relative;
+
+	* {
+		gap: inherit;
 	}
+
 	div.hint {
+		display: none;
 		font-size: smaller;
 		font-style: italic;
 		position: absolute;
@@ -27,24 +35,28 @@ form, .xsd2form {
 		z-index: 1000;
 		padding: .5em;
 		box-shadow: 1px 1px 1px #0006;
-		>p {
+
+		> p {
 			transition: 1s;
 			margin: 0;
 			margin-right: 1em;
 		}
+
 		&:focus {
 			z-index: 2000;
 		}
-		&:not(:focus)>p {
+
+		&:not(:focus) > p {
 			display: none;
 		}
+
 		// &:not(:active) {
-			// width: 0;
+		// width: 0;
 		// }
 		&::before {
 			position: absolute;
-			top:.05em;
-			right:.05em;
+			top: .05em;
+			right: .05em;
 			content: '!';
 			font-style: normal;
 			width: 1em;
@@ -54,32 +66,87 @@ form, .xsd2form {
 
 		}
 	}
+
 	:invalid {
 		outline: 1px dashed red;
 	}
 }
+
 div.group {
-	&, & > div {
+
+	&,
+	& > div {
 		display: grid;
 		grid-template-columns: subgrid;
 		grid-column: 1 / -1;
 	}
 }
+
 div.template {
 	// display: contents;
 	padding: 0;
 	z-index: 2000;
+
 	button.add {
-		border:solid;
+		border: solid;
 	}
+
 	&::before {
 		// position: absolute;
 		content: var(--label);
 		font-size: smaller;
 		font-style: italic;
 	}
+
 	> :not(.add) {
 		display: none;
 		// opacity: .5;
+	}
+}
+
+.complexType {
+	@extend .row;
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: subgrid;
+	gap: inherit;
+}
+
+.elements {
+	display: contents;
+
+	// grid-column: 1 / -1;
+	> * {
+		@extend .row;
+	}
+}
+
+.attributes {
+	display: flex;
+	flex-wrap: wrap;
+	grid-column: 1 / -1;
+	gap: .5em 1em;
+}
+
+.attribute {
+	// @extend .row;
+	flex-grow: 1;
+	display: flex;
+	gap: 1ch;
+
+	> input,
+	> select {
+		&:last-of-type {
+			flex-grow: 1;
+		}
+	}
+}
+
+.group {
+	box-shadow: inset 1px 1px 3px #0003;
+	background-color: #fff8;
+
+	> div {
+		box-shadow: 1px 1px 2px #0003;
 	}
 }

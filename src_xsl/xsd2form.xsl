@@ -21,30 +21,93 @@
 		</html>
 	</xsl:template>
 	<xsl:template match="xs:schema">
+		<xsl:comment>
+			<xsl:text>xs:schema</xsl:text>
+			<xsl:value-of select="name()"/>
+		</xsl:comment>
 		<form>
 			<xsl:apply-templates select="xs:element"/>
 		</form>
 	</xsl:template>
 	<xsl:template match="xs:complexType">
-		<xsl:apply-templates select="xs:attribute"/>
-		<xsl:apply-templates select="*[not(self::xs:attribute)]"/>
-
+		<xsl:param name="name" select="@name|../@name"/>
+		<xsl:comment>
+			<xsl:text>xs:complexType</xsl:text>
+		</xsl:comment>
+		<div class="{local-name()} {$name}">
+			<xsl:apply-templates select="." mode="attributes"/>
+			<xsl:apply-templates select="." mode="contents"/>
+		</div>
+	</xsl:template>
+	<xsl:template match="xs:complexType" mode="attributes">
+		<xsl:param name="name" select="@name|../@name"/>
+		<xsl:comment>
+			<xsl:text>match="xs:complexType" mode="attributes"</xsl:text>
+		</xsl:comment>
+		<div class="attributes">
+			<xsl:apply-templates select="./xs:attribute|xs:simpleContent/xs:extension/xs:attribute"/>
+		</div>
+	</xsl:template>
+	<xsl:template match="xs:complexType" mode="contents">
+		<xsl:param name="name" select="@name|../@name"/>
+		<xsl:comment>
+			<xsl:text>match="xs:complexType" mode="contents"</xsl:text>
+		</xsl:comment>
+		<div class="elements">
+			<xsl:apply-templates select="*[not(self::xs:attribute)]" mode="minmax"/>
+		</div>
+	</xsl:template>
+	<xsl:template match="xs:complexType[xs:simpleContent/xs:extension]">
+		<xsl:param name="name" select="@name|../@name"/>
+		<xsl:comment>
+			<xsl:text>xs:complexType[xs:simpleContent/xs:extension]</xsl:text>
+		</xsl:comment>
+		<div class="{local-name()} {$name}">
+			<xsl:apply-templates select="." mode="attributes"/>
+			<div class="elements yyy">
+				<xsl:apply-templates select="*[not(self::xs:attribute)]" mode="minmax"/>
+			</div>
+		</div>
+	</xsl:template>
+	<xsl:template match="*" mode="attributes">
+		<xsl:comment>
+			<xsl:text>match="*" mode="attributes"</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
+		<div class="attributes">
+			<xsl:value-of select="count(xs:attributes)"/>
+			<xsl:apply-templates select="xs:attribute"/>
+		</div>
 	</xsl:template>
 	<xsl:template match="xs:simpleContent">
+		<xsl:comment>
+			<xsl:text>xs:simpleContent</xsl:text>
+			<xsl:value-of select="name()"/>
+		</xsl:comment>
 		<xsl:apply-templates/>
 	</xsl:template>
 	<xsl:template match="xs:extension[@base='xs:string']">
-		<xsl:apply-templates/>
-		<div>
+		<xsl:comment>
+			<xsl:text>xs:extension[@base='xs:string']</xsl:text>
+			<xsl:value-of select="name()"/>
+		</xsl:comment>
+		<div class="content">
 			<label for="contenu">Contenu:</label>
 			<input type="text" name="contenu"/>
 		</div>
 	</xsl:template>
-	<xsl:template match="xs:sequence">
-		<xsl:for-each select="xs:element">
-		<xsl:call-template name="minmax"/>
-		</xsl:for-each>
-		<!-- <xsl:apply-templates/> -->
+	<xsl:template match="*[(not(@minOccurs) or @minOccurs=1) and (not(@maxOccurs) or @maxOccurs=1)]" mode="minmax">
+		<xsl:comment>
+			<xsl:text>mode="minmax"</xsl:text>
+			<xsl:value-of select="name()"/>
+		</xsl:comment>
+		<xsl:apply-templates select="."/>
 	</xsl:template>
-
+	<xsl:template match="xs:sequence|xs:choice|xs:all|xs:group">
+		<xsl:comment>
+			<xsl:text>xs:sequence|xs:choice|xs:all|xs:group</xsl:text>
+			<xsl:value-of select="name()"/>
+		</xsl:comment>
+		<xsl:apply-templates mode="minmax"/>
+	</xsl:template>
 </xsl:stylesheet>

@@ -6,6 +6,10 @@
 	xmlns:h="http://www.w3.org/1999/xhtml">
 	<!-- FALLBACK -->
 	<xsl:template match="xs:element[@type]">
+		<xsl:comment>
+			<xsl:text>match=xs:element[@type]</xsl:text>
+		</xsl:comment>
+
 		<div class="error">
 			<xsl:text>Elements of type "</xsl:text>
 			<code>
@@ -14,13 +18,30 @@
 			<xsl:text>" are not yet supported</xsl:text>
 		</div>
 	</xsl:template>
+	<xsl:template match="xs:element[xs:complexType]">
+		<xsl:comment>
+			<xsl:text>match=xs:element[xs:complexType]</xsl:text>
+		</xsl:comment>
+		<div class="element">
+			<xsl:call-template name="label"/>
+			<!-- <xsl:value-of select="@name"/> -->
+			<xsl:apply-templates/>
+		</div>
+	</xsl:template>
 
 	<xsl:template match="xs:element[@type][//xs:complexType[@name = current()/@type]]">
-		<xsl:value-of select="@type"/>
-		<xsl:apply-templates select="//xs:complexType[@name = current()/@type]"/>
+		<xsl:comment>
+			<xsl:text>match="xs:element[@type][//xs:complexType[@name = current()/@type]]"</xsl:text>
+		</xsl:comment>
+		<xsl:apply-templates select="//xs:complexType[@name = current()/@type]">
+			<xsl:with-param name="name" select="@name"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="xs:element[@type='xs:string']">
-		<div>
+		<xsl:comment>
+			<xsl:text>match=xs:element[@type='xs:string']</xsl:text>
+		</xsl:comment>
+		<div class="element {@name}">
 			<xsl:call-template name="label"/>
 			<input type="text" name="{@name}" placeholder="{@name}">
 				<xsl:apply-templates select="xs:restriction"/>
@@ -29,16 +50,13 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="xs:element[@type='df:html']">
-		<div>
+		<xsl:comment>
+			<xsl:text>match=xs:element[@type='df:html']</xsl:text>
+		</xsl:comment>
+		<div class="element {@name}">
 			<xsl:call-template name="label"/>
 			<textarea rows="5" cols="30"></textarea>
 			<xsl:call-template name="hint"/>
 		</div>
 	</xsl:template>
-	<!-- <xsl:template match="xs:element[@minOccurs]">
-		<div class="template">
-			<xsl:apply-templates select="."/>
-		</div>
-		<div>Ajouter</div>
-	</xsl:template> -->
 </xsl:stylesheet>

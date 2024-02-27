@@ -2,14 +2,18 @@
 @import "boilerplate";
 @import "base";
 @import "form";
-body:not(:focus) {
+#app:not(:focus) {
 	h6 {
 		display: none;
 	}
 }
 h6 {
+	display: none !important;
 	margin: 0;
-	position: absolute;
+	// display: unset !important;
+	// position: absolute !important;
+	border: 1px dotted blue;
+	background-color: #ffe !important;
 }
 .error {
 	color: red;

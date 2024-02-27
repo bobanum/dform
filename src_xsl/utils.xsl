@@ -10,6 +10,10 @@
     |_|\_/_/ \_\_|  |_|___|___/    |_| |___|_|  |_|_| |____/_/ \_\_| |___|___/                                                                               
     -->
 	<xsl:template name="label">
+		<xsl:comment>
+			<xsl:text>name=label</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
 		<label for="{@name}">
 			<xsl:call-template name="documentation">
 				<xsl:with-param name="attribute" select="'label|hint'"/>
@@ -19,6 +23,10 @@
 		</label>
 	</xsl:template>
 	<xsl:template name="hint">
+		<xsl:comment>
+			<xsl:text>name=hint</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
 		<div class="hint" tabindex="0">
 			<p>
 				<xsl:call-template name="documentation">
@@ -30,6 +38,10 @@
 	<xsl:template name="documentation">
 		<xsl:param name="attribute"/>
 		<xsl:param name="default"/>
+		<xsl:comment>
+			<xsl:text>name=documentation</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
 		<xsl:variable name="documentation" select="xs:annotation/xs:documentation[@xml:lang=//xs:schema/@xml:lang]"/>
 		<xsl:variable name="value" select="$documentation/@*[contains(concat('|', $attribute, '|'), concat('|', name(), '|'))]"/>
 		<xsl:choose>
@@ -48,6 +60,10 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template name="minmax">
+		<xsl:comment>
+			<xsl:text>name=minmax</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
 		<xsl:variable name="min" select="number(concat('0',@minOccurs))+not(@minOccurs)*1"/>
 		<xsl:variable name="max">
 			<xsl:choose>
@@ -63,10 +79,12 @@
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:if test="$min=1 and $max=1">
-			<xsl:apply-templates select="current()"/>
+			<xsl:apply-templates select="current()">
+				<xsl:with-param name="name" select="@name"/>
+			</xsl:apply-templates>
 		</xsl:if>
 		<xsl:if test="not($min=1 and $max=1)">
-			<div class="group" data-min="{$min}" data-max="{$max}">
+			<div class="group {local-name()}" data-min="{$min}" data-max="{$max}">
 				<xsl:if test="$min>0">
 					<xsl:call-template name="loop">
 						<xsl:with-param name="start" select="1"/>
@@ -84,11 +102,21 @@
 				</xsl:if>
 			</div>
 		</xsl:if>
-
+	</xsl:template>
+	<xsl:template match="*" mode="minmax">
+		<xsl:comment>
+			<xsl:text>mode=minmax</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
+		<xsl:call-template name="minmax"/>
 	</xsl:template>
 	<xsl:template name="loop">
 		<xsl:param name="start"/>
 		<xsl:param name="end"/>
+		<xsl:comment>
+			<xsl:text>name=loop</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
 		<xsl:if test="$start &lt;= $end">
 			<xsl:apply-templates select="current()"/>
 			<xsl:call-template name="loop">

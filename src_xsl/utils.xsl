@@ -84,23 +84,26 @@
 			</xsl:apply-templates>
 		</xsl:if>
 		<xsl:if test="not($min=1 and $max=1)">
-			<div class="group {local-name()}" data-min="{$min}" data-max="{$max}">
-				<xsl:if test="$min>0">
+			<fieldset class="group {local-name()} empty" data-min="{$min}" data-max="{$max}">
+				<legend>
+					<xsl:call-template name="label"/>
+				</legend>
+				<!-- <xsl:if test="$min>0">
 					<xsl:call-template name="loop">
 						<xsl:with-param name="start" select="1"/>
 						<xsl:with-param name="end" select="$min"/>
 					</xsl:call-template>
-				</xsl:if>
-				<xsl:if test="$max=-1 or ($min=0 and $max!=0) or $max>$min">
+				</xsl:if> -->
+				<!-- <xsl:if test="$max=-1 or ($min=0 and $max!=0) or $max>$min">
 					<div class="template">
-						<button class="add" type="button" onclick="Form.addElement.apply(this, arguments)">
-							<xsl:value-of select="@name"/>
-						</button>
-						<button class="delete" type="button">delete</button>
+						<button class="delete" type="button">❌︎</button>
 						<xsl:apply-templates select="current()"/>
 					</div>
-				</xsl:if>
-			</div>
+				</xsl:if> -->
+				<button class="add" type="button" data-template="{generate-id(.)}" onclick="Form.addElement.apply(this, arguments)">
+					<xsl:value-of select="@name"/>
+				</button>
+			</fieldset>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="*" mode="minmax">
@@ -125,4 +128,22 @@
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
+	<!-- Levels of visibility for "basic", "advanced", "expert" modes. may be implemented fully (much) later -->
+	<!-- <xsl:template name="level">
+		<xsl:apply-templates select="xs:annotation/xs:appinfo/@df:level"/>
+		<xsl:comment>
+			<xsl:text>name="level"</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
+	</xsl:template>
+	<xsl:template match="@df:level">
+		<xsl:attribute name="data-level">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+		<xsl:comment>
+			<xsl:text>match="@df:level"</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
+	</xsl:template> -->
+
 </xsl:stylesheet>

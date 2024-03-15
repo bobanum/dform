@@ -1,13 +1,18 @@
 class Form {
 	static addElement(e) {
-		console.log(e.currentTarget.lastElementChild);
-		var template = e.currentTarget.closest(".template");
-		var clone = template.lastElementChild.cloneNode(true);
-		var deleteBtn = clone.appendChild(template.querySelector(".delete").cloneNode(true));
-		deleteBtn.addEventListener("click", e => {
-			e.target.parentNode.remove();
+		var template = document.getElementById(e.currentTarget.dataset.template);
+		var clone = template.firstElementChild.cloneNode(true);
+		clone.appendChild(Form.dom_deleteBtn());
+		e.currentTarget.parentNode.insertBefore(clone, e.currentTarget);
+	}
+	static dom_deleteBtn() {
+		var result = document.createElement("button");
+		result.textContent = "❌︎";
+		result.classList.add("delete");
+		result.addEventListener("click", e => {
+			result.parentNode.remove();
 		});
-		template.parentNode.insertBefore(clone, template);
+		return result;
 	}
 }
 export { Form as default, Form};

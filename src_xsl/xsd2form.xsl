@@ -9,22 +9,19 @@
 	<xsl:import href="src_xsl/restrictions.xsl"/>
 	<xsl:output method="html" indent="yes"/>
 	<xsl:variable name="lang" select="'fr'"/>
-	<xsl:template match="/zzz">
-		<html>
-			<head>
-				<title>Form Generation</title>
-			</head>
-			<body>
-				<h2>Form Generated from XSD</h2>
-				<xsl:apply-templates/>
-			</body>
-		</html>
-	</xsl:template>
 	<xsl:template match="xs:schema">
 		<xsl:comment>
 			<xsl:text>xs:schema</xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
+		<div id="templates">
+			<xsl:for-each select="//node()[not((not(@minOccurs) or @minOccurs='1') and (not(@maxOccurs) or @maxOccurs&lt;='1'))]">
+				<div id="{generate-id(.)}">
+					<xsl:apply-templates select="."/>
+				</div>
+			</xsl:for-each>
+			<!-- <xsl:apply-templates select="//node()[not((not(@minOccurs) or @minOccurs='1') and (not(@maxOccurs) or @maxOccurs&lt;='1'))]" mode="template"/> -->
+		</div>
 		<form>
 			<xsl:apply-templates select="xs:element"/>
 		</form>

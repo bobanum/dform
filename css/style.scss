@@ -2,6 +2,10 @@
 @import "boilerplate";
 @import "base";
 @import "form";
+// @import "test";
+#app {
+	padding: 1em;
+}
 #app:not(:focus) {
 	h6 {
 		display: none;

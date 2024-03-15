@@ -1,29 +1,7 @@
-<svg width="378" height="328.7" version="1.1" viewBox="0 0 378 328.7" xmlns="http://www.w3.org/2000/svg">
+<svg width="378" height="329" version="1.1" viewBox="0 0 378 329" xmlns="http://www.w3.org/2000/svg">
     <g>
-        <path d="m101 324.35-0.41612-39.96 32.984-41.46 4.7301-27.825 79.532-198.83 11.17-11.926h18l115.33 14.873-125.33 289.13-108 16h-28.001" fill="#fff"/>
-        <path d="m229 4.3478c53.019 0 96 42.981 96 96h-64c0-17.673-14.327-32-32-32s-32 14.327-32 32v32h64v64h-64v32c0 53.019-42.981 96-96 96h144l128-320z" fill="#303075"/>
-        <path d="m229 4.3478c-53.019 0-96 42.981-96 96v32h-32c-53.019 0-96 42.981-96 96s42.981 96 96 96zm-128 192h32v32c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32s14.327-32 32-32z" fill="#8f1c1c"/>
-    </g>
-    <g display="none" fill-rule="evenodd" stroke-width="5">
-        <g>
-            <path transform="translate(5 4.3478)" d="m-359.97 144v64h-32c-53.019 0-96 42.981-96 96 0 53.019 42.981 96 96 96 48.474 0 88.533-35.934 95.05-82.612zm-32 128h32v32c0 17.673-14.327 32-32 32s-32-14.327-32-32 14.327-32 32-32z" fill="#a40" stop-color="#000000" style="paint-order:markers stroke fill"/>
-            <path transform="translate(5 4.3478)" d="m-263.97 48c-48.474 0-88.533 35.934-95.05 82.612l63.05 173.39v-32h64v-64h-64v-64c0-17.673 14.327-32 32-32s32 14.327 32 32h64c0-53.019-42.981-96-96-96z" fill="#303075" stop-color="#000000" style="paint-order:markers stroke fill"/>
-        </g>
-        <g>
-            <path transform="translate(5 4.3478)" d="m856 120.59c-19.597 17.576-32 43.014-32 71.41v64h-32c-53.019 0-96 42.981-96 96s42.981 96 96 96c24.623 0 47.007-9.3495 64-24.59zm-64 199.41h32v32c0 17.673-14.327 32-32 32s-32-14.327-32-32 14.327-32 32-32z" fill="#a40" stop-color="#000000" style="-inkscape-stroke:none;font-variation-settings:normal;paint-order:markers stroke fill"/>
-            <path transform="translate(5 4.3478)" d="m920 96c-24.623 0-47.007 9.3495-64 24.59v302.82c19.597-17.576 32-43.014 32-71.41v-32h64v-64h-64v-64c0-17.673 14.327-32 32-32s32 14.327 32 32h64c0-53.019-42.981-96-96-96z" fill="#303075" stop-color="#000000" style="paint-order:markers stroke fill"/>
-        </g>
-        <g transform="translate(110.17 90.436)">
-            <path d="m-268.84-572.07c53.019 0 96 42.981 96 96h-64c0-17.673-14.327-32-32-32s-32 14.327-32 32v32h64v64h-64v32c0 53.019-42.981 96-96 96h224v-320z" fill="#303075" stop-color="#000000" style="-inkscape-stroke:none;font-variation-settings:normal;paint-order:markers stroke fill"/>
-            <path d="m-268.84-572.07c-53.019 0-96 42.981-96 96v32h-32c-53.019 0-96 42.981-96 96s42.981 96 96 96zm-128 192h32v32c0 17.673-14.327 32-32 32s-32-14.327-32-32 14.327-32 32-32z" fill="#8f1c1c" stop-color="#000000" style="-inkscape-stroke:none;font-variation-settings:normal;paint-order:markers stroke fill"/>
-        </g>
-        <g transform="translate(5 4.3478)">
-            <path d="m13.566-485.98v224c0-53.019 42.981-96 96-96h32v-32c0-53.019 42.981-96 96-96zm224 0-128 320h2e-3zm-128 320c-53.019 0-96-42.981-96-96v96zm0-128c-17.673 0-32 14.327-32 32s14.327 32 32 32c17.673 0 32-14.327 32-32v-32z" fill="#8f1c1c" stop-color="#000000" style="-inkscape-stroke:none;font-variation-settings:normal;paint-order:markers stroke fill"/>
-            <path d="m237.57-485.98-128 320c53.018-1e-3 95.998-42.982 95.998-96v-32h64v-64h-64v-32c0-17.673 14.327-32 32-32 17.673 0 32 14.327 32 32h64c0-53.019-42.981-96-96-96z" fill="#303075" stop-color="#000000" style="-inkscape-stroke:none;font-variation-settings:normal;paint-order:markers stroke fill"/>
-        </g>
-        <g transform="translate(405.3 164.35)">
-            <path d="m-138.73-1058.9-128 320c53.019 0 96-42.981 96-96v-32h64v-64h-64v-32c0-17.673 14.327-32 32-32s32 14.327 32 32h64c0-53.019-42.981-96-96-96z" fill="#303075" stop-color="#000000" style="-inkscape-stroke:none;font-variation-settings:normal;paint-order:markers stroke fill"/>
-            <path d="m-283.67-1058.9-128 320h144.94c-53.019 0-96-42.981-96-96 0-53.019 42.981-96 96-96h32v-32c0-53.019 42.981-96 96-96zm16.939 192c-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32s32-14.327 32-32v-32z" fill="#8f1c1c" stop-color="#000000" style="-inkscape-stroke:none;font-variation-settings:normal;paint-order:markers stroke fill"/>
-        </g>
+        <path fill="hsl(60, 100%, 50%)" d="m101 324.35-0.41612-39.96 32.984-41.46 4.7301-27.825 79.532-198.83 11.17-11.926h18l115.33 14.873-125.33 289.13-108 16h-28.001"/>
+        <path fill="hsl(220, 42%, 32%)" d="m229 4.3478c53.019 0 96 42.981 96 96h-64c0-17.673-14.327-32-32-32s-32 14.327-32 32v32h64v64h-64v32c0 53.019-42.981 96-96 96h144l128-320z"/>
+        <path fill="hsl(345, 80%, 34%)" d="m229 4.3478c-53.019 0-96 42.981-96 96v32h-32c-53.019 0-96 42.981-96 96s42.981 96 96 96zm-128 192h32v32c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32s14.327-32 32-32z"/>
     </g>
 </svg>

@@ -5,14 +5,11 @@ class Xsl {
 	}
 
 	async transform(xml) {
-		const docs = await Promise.all([this.loadDoc(xml), this.loadDoc(this.xslFile)]);
+		const [xmlDoc, xslDoc] = await Promise.all([this.loadDoc(xml), this.loadDoc(this.xslFile)]);
 		const processor = new XSLTProcessor();
-		console.log(docs);
-		processor.importStylesheet(docs[1]);
-		console.log(processor);
-		docs[0].documentElement.setAttribute('xml:lang', 'it');
-		console.log(docs[0].documentElement);
-		const result = processor.transformToFragment(docs[0], docs[1]);
+		processor.importStylesheet(xslDoc);
+		xmlDoc.documentElement.setAttribute('xml:lang', 'fr');
+		const result = processor.transformToFragment(xmlDoc, document);
 		return result;
 	}
 	async loadDoc(url) {

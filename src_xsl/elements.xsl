@@ -28,7 +28,6 @@
 			<xsl:apply-templates/>
 		</div>
 	</xsl:template>
-
 	<xsl:template match="xs:element[@type][//xs:complexType[@name = current()/@type]]">
 		<xsl:comment>
 			<xsl:text>match="xs:element[@type][//xs:complexType[@name = current()/@type]]"</xsl:text>
@@ -54,9 +53,17 @@
 			<xsl:text>match=xs:element[@type='df:html']</xsl:text>
 		</xsl:comment>
 		<div class="element {@name}">
-			<xsl:call-template name="label"/>
+			<!-- <xsl:call-template name="label"/> -->
 			<textarea rows="5" cols="30"></textarea>
 			<xsl:call-template name="hint"/>
+		</div>
+	</xsl:template>
+	<xsl:template match="xs:element" mode="template">
+		<xsl:comment>
+			<xsl:text>match=xs:element mode=template</xsl:text>
+		</xsl:comment>
+		<div class="template">
+			<xsl:apply-templates select="current()"/>
 		</div>
 	</xsl:template>
 </xsl:stylesheet>

@@ -5,3 +5,23 @@
 	--red: #8f1c1c;
 	--blue: #303075;
 }
+@mixin button {
+	--l: 50%;
+	padding: 0;
+	border-radius: 100%;
+	line-height: 1;
+	border:none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 2em;
+	height: 2em;
+	box-shadow: 1px 1px 1px #0006;
+	background-color: hsl(var(--h, 0), var(--s, 0%), var(--l));
+	
+	&:hover {
+		background-color: hsl(var(--h, 0), var(--s, 0%), calc(var(--l) - 10%));
+		color: white;
+	}
+}

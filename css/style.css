@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --hue: 200;
   --sat: 50%;
@@ -21,24 +22,30 @@ html {
 }
 
 header {
-  display: flex;
-  height: 7em;
-  align-items: center;
   padding: 1em;
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  justify-content: start;
   border-bottom: 3px solid var(--blue);
 }
 header img {
-  height: 100%;
+  height: 80px;
+  grid-row-end: span 2;
 }
 header h1 {
-  font-size: 2.5em;
+  font-size: 3em;
+  line-height: 1;
+  margin: 0;
+}
+header h2 {
+  font-size: 1.5em;
   letter-spacing: -0.1ch;
   line-height: 1;
 }
-header h1 :first-child {
+header h2 :first-child {
   color: var(--red);
 }
-header h1 :last-child {
+header h2 :last-child {
   background-color: var(--blue);
   color: white;
   padding: 0 0.25ch;
@@ -59,11 +66,12 @@ header h1 :last-child {
 
 form,
 .xsd2form {
-  border: 2px dotted red;
-  padding: 1em;
+  --min: 15ch;
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 0.25em;
+  grid-template-columns: [row-start] repeat(auto-fill, [field-start label-start] minmax(var(--min), auto) [label-end input-start] minmax(calc(var(--min) * 2), 1fr) [input-end field-end]) [row-end];
+  gap: 0.25em 0.5em;
+  background: none;
+  grid-auto-flow: dense;
 }
 form *,
 .xsd2form * {
@@ -116,26 +124,119 @@ form :invalid,
   outline: 1px dashed red;
 }
 
-div.group, div.group > div {
+fieldset.group {
+  border: none;
+  padding: 0.25em;
+  gap: 0.5em;
+  padding-bottom: 1em;
+  box-shadow: none;
+}
+fieldset.group:has(legend + .add) {
+  padding: 0;
+  background-color: transparent;
+  justify-items: start;
+  grid-template-columns: 1fr;
+}
+fieldset.group:has(legend + .add) legend {
+  display: none;
+}
+fieldset.group:has(legend + .add) .template {
+  position: relative;
+  display: contents;
+}
+fieldset.group:has(legend + .add) .add {
+  position: relative;
+  margin-left: 0;
+  border-radius: 0.5em;
+  margin-top: 0.5em;
+  border-width: 1px;
+}
+fieldset.group, fieldset.group > div {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1/-1;
+}
+fieldset.group > .element {
+  padding-left: 1em;
+  position: relative;
+  box-shadow: none;
+  grid-template-columns: 1fr;
+}
+fieldset.group > .element::before {
+  content: "";
+  cursor: ns-resize;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.1333333333));
+  width: 0.5em;
+  position: absolute;
+  left: 0.15em;
+  top: 0.25em;
+  bottom: 0.25em;
+  border-radius: 1em;
+}
+
+button.delete {
+  --h: 0;
+  --s: 100%;
+  --l: 50%;
+  padding: 0;
+  border-radius: 100%;
+  line-height: 1;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 2em;
+  height: 2em;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  background-color: hsl(var(--h, 0), var(--s, 0%), var(--l));
+  position: absolute;
+  right: -0.5em;
+  top: -0.25em;
+}
+button.delete:hover {
+  background-color: hsl(var(--h, 0), var(--s, 0%), calc(var(--l) - 10%));
+  color: white;
+}
+
+#templates {
+  display: none;
+}
+
+button.add {
+  grid-column: 1/-1;
+  justify-self: start;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top-width: 0;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 0 0 0.5em 0.5em;
+  padding: 0em 0.5em;
+  margin-left: 1.25em;
+  margin-top: -0.5em;
+}
+button.add::before {
+  content: "➕︎";
+  margin-right: 0.5ch;
 }
 
 div.template {
   padding: 0;
   z-index: 2000;
-}
-div.template button.add {
-  border: solid;
+  position: absolute;
+  box-shadow: none !important;
+  bottom: -0.25em;
 }
 div.template::before {
   content: var(--label);
   font-size: smaller;
   font-style: italic;
 }
-div.template > :not(.add) {
-  display: none;
+
+label + * {
+  grid-column: 2/-1;
 }
 
 .complexType {
@@ -148,29 +249,50 @@ div.template > :not(.add) {
 .elements {
   display: contents;
 }
+.elements > .element {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* .elements */
 .attributes {
-  display: flex;
-  flex-wrap: wrap;
+  display: contents;
+}
+.attributes > .attribute {
+  --span:1;
+  --rowspan:1;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column-end: span calc(var(--span) * 2);
+  grid-row-end: span var(--rowspan);
+  align-items: start;
+}
+.attributes > .attribute :last-child {
+  grid-column-end: span calc(var(--span) * 2 - 1);
+  justify-self: stretch;
+  grid-row-end: span var(--rowspan);
+}
+.attributes.row, .attributes.complexType, .elements > .attributes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10em, auto));
   grid-column: 1/-1;
-  gap: 0.5em 1em;
+}
+.attributes.row > .attribute, .attributes.complexType > .attribute, .elements > .attributes > .attribute {
+  display: grid;
+  grid-template-columns: subgrid;
 }
 
-.attribute {
-  flex-grow: 1;
-  display: flex;
-  gap: 1ch;
-}
-.attribute > input:last-of-type,
-.attribute > select:last-of-type {
-  flex-grow: 1;
-}
-
+/* .attributes */
 .group {
   box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
   background-color: rgba(255, 255, 255, 0.5333333333);
 }
 .group > div {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#app {
+  padding: 1em;
 }
 
 #app:not(:focus) h6 {

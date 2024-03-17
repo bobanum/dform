@@ -77,7 +77,7 @@
 	</xsl:template>
 	<xsl:template match="xs:enumeration" mode="buttons">
 		<xsl:comment>
-			<xsl:text>match="xs:restriction/xs:enumeration" mode="buttons</xsl:text>
+			<xsl:text>match="xs:restriction/xs:enumeration" mode="buttons"</xsl:text>
 		</xsl:comment>
 		<xsl:variable name="value">
 			<xsl:call-template name="documentation">

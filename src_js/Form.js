@@ -14,5 +14,16 @@ class Form {
 		});
 		return result;
 	}
+	static submit(e) {
+		e.preventDefault();
+		var data = new FormData(e.currentTarget);
+		console.log(data);
+		var obj = {};
+		for (var pair of data.entries()) {
+			obj[pair[0]] = pair[1];
+		}
+		console.log(obj);
+		return false;
+	}
 }
 export { Form as default, Form};

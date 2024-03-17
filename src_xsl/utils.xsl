@@ -11,8 +11,8 @@
     -->
 	<xsl:template name="label">
 		<xsl:comment>
-			<xsl:text>name=label</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
+			<xsl:text>name="label"</xsl:text>
+			<xsl:value-of select="concat(' - {',name(),'}')"/>
 		</xsl:comment>
 		<label for="{@name}">
 			<xsl:choose>
@@ -32,8 +32,8 @@
 	</xsl:template>
 	<xsl:template name="hint">
 		<xsl:comment>
-			<xsl:text>name=hint</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
+			<xsl:text>name="hint"</xsl:text>
+			<xsl:value-of select="concat(' - {',name(),'}')"/>
 		</xsl:comment>
 		<div class="hint" tabindex="0">
 			<p>
@@ -45,12 +45,12 @@
 	</xsl:template>
 	<xsl:template name="documentation">
 		<xsl:param name="attribute" />
-		<xsl:param name="default" />
+		<xsl:param name="default" select="@name" />
 		<xsl:comment>
-			<xsl:text>name=documentation</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
+			<xsl:text>name="documentation"</xsl:text>
+			<xsl:value-of select="concat(' - {',name(),'}')"/>
 			<xsl:value-of select="name()"/>
-		</xsl:comment>
+		</xsl:comment>		
 		<xsl:choose>
 			<xsl:when test="//xs:schema/@xml:lang and xs:annotation/xs:documentation[@xml:lang=//xs:schema/@xml:lang]">
 				<!-- Language found. Take the good one -->
@@ -85,37 +85,31 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
-				<!-- Take empty value -->
+				<xsl:value-of select="$default" />
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template name="documentation-value">
 		<xsl:param name="attribute" />
-		<xsl:param name="default" />
-		<xsl:param name="documentation" />
+		<xsl:param name="default" select="@name" />
+		<xsl:param name="documentation" select="/*[false()]" />
 		<xsl:comment>
-			<xsl:text>name=documentation-value</xsl:text>
+			<xsl:text>name="documentation-value"</xsl:text>
 		</xsl:comment>
 		<xsl:variable name="value" select="$documentation/@*[contains(concat('|', $attribute, '|'), concat('|', local-name(), '|'))]" />
 		<xsl:choose>
 			<xsl:when test="$value">
 				<xsl:value-of select="$value" />
 			</xsl:when>
-			<xsl:when test="$documentation">
-				<xsl:value-of select="$documentation" />
-			</xsl:when>
-			<xsl:when test="$default">
-				<xsl:value-of select="$default" />
-			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="@name" />
+				<xsl:value-of select="$default" />
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template name="minmax">
 		<xsl:comment>
-			<xsl:text>name=minmax</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
+			<xsl:text>name="minmax"</xsl:text>
+			<xsl:value-of select="concat(' - {',name(),'}')"/>
 		</xsl:comment>
 		<xsl:variable name="min" select="number(concat('0',@minOccurs))+not(@minOccurs)*1" />
 		<xsl:variable name="max">
@@ -161,7 +155,7 @@
 	</xsl:template>
 	<xsl:template match="*" mode="minmax">
 		<xsl:comment>
-			<xsl:text>mode=minmax</xsl:text>
+			<xsl:text>macth="*" mode="minmax"</xsl:text>
 			<xsl:value-of select="concat('{',name(),'}')"/>
 		</xsl:comment>
 		<xsl:call-template name="minmax" />
@@ -170,8 +164,8 @@
 		<xsl:param name="start" />
 		<xsl:param name="end" />
 		<xsl:comment>
-			<xsl:text>name=loop</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
+			<xsl:text>name="loop"</xsl:text>
+			<xsl:value-of select="concat(' - {',name(),'}')"/>
 		</xsl:comment>
 		<xsl:if test="$start &lt;= $end">
 			<xsl:apply-templates select="current()" />

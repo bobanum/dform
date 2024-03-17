@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:df="https://bobanum.github.io/dform" xml:lang="de">
-    <xs:import namespace="https://bobanum.github.io/dform" schemaLocation="../dform.xsd"/>
+    xmlns:df="https://bobanum.github.io/dform" xml:lang="fr">
+    <xs:import namespace="https://bobanum.github.io/dform" schemaLocation="../dform.xsd" />
     <xs:complexType name="QuestionType">
         <xs:annotation>
             <xs:documentation xml:lang="en" df:hint="The simplest type of question" />
@@ -20,7 +20,7 @@
                     <xs:documentation xml:lang="de" df:label="Formulierung" df:hint="Die Formulierung der Frage" />
                 </xs:annotation>
             </xs:element>
-            <xs:element name="details" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="details" type="df:html" minOccurs="0" maxOccurs="unbounded">
                 <xs:annotation>
                     <xs:documentation xml:lang="en" df:label="Details" df:hint="Additional details about the question" />
                     <xs:documentation xml:lang="fr" df:label="Détails" df:hint="Détails supplémentaires sur la question" />
@@ -134,8 +134,8 @@
             </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:integer">
-                    <xs:minInclusive value="0"/>
-                    <xs:maxInclusive value="10"/>
+                    <xs:minInclusive value="0" />
+                    <xs:maxInclusive value="10" />
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -149,8 +149,8 @@
             </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:integer">
-                    <xs:minInclusive value="0"/>
-                    <xs:maxInclusive value="10"/>
+                    <xs:minInclusive value="0" />
+                    <xs:maxInclusive value="10" />
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -164,7 +164,7 @@
             </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:integer">
-                    <xs:minInclusive value="0"/>
+                    <xs:minInclusive value="0" />
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -178,7 +178,7 @@
             </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:pattern value="(\w+)(,\s*\w+)*"/>
+                    <xs:pattern value="(\w+)(,\s*\w+)*" />
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -195,11 +195,9 @@
                         <xs:documentation xml:lang="de" df:label="Typ" df:hint="Der Typ der Antwort" />
                     </xs:annotation>
                 </xs:attribute>
-                <xs:attribute name="white-spaces" type="xs:boolean">
-                </xs:attribute>
-                <xs:attribute name="case-sensitive" type="xs:boolean"/>
-                <xs:attribute name="fraction" type="xs:decimal">
-                </xs:attribute>
+                <xs:attribute name="white-spaces" type="xs:boolean" />
+                <xs:attribute name="case-sensitive" type="xs:boolean" />
+                <xs:attribute name="fraction" type="xs:decimal" />
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>

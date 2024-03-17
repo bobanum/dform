@@ -12,7 +12,7 @@
 	<xsl:variable name="lang" select="'fr'"/>
 	<xsl:template match="xs:schema">
 		<xsl:comment>
-			<xsl:text>xs:schema</xsl:text>
+			<xsl:text>match="xs:schema" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
 		<div id="templates">
@@ -23,14 +23,16 @@
 			</xsl:for-each>
 			<!-- <xsl:apply-templates select="//node()[not((not(@minOccurs) or @minOccurs='1') and (not(@maxOccurs) or @maxOccurs&lt;='1'))]" mode="template"/> -->
 		</div>
-		<form>
+		<form onsubmit="return Form.submit.apply(this, arguments)" action="" method="post">
+			<div><button>Submit</button></div>
 			<xsl:apply-templates select="xs:element"/>
+			<div style="order:1000;"><button>Submit</button></div>
 		</form>
 	</xsl:template>
 	<xsl:template match="xs:complexType">
 		<xsl:param name="name" select="@name|../@name"/>
 		<xsl:comment>
-			<xsl:text>xs:complexType</xsl:text>
+			<xsl:text>match="xs:complexType"</xsl:text>
 		</xsl:comment>
 		<div class="{local-name()} {$name}">
 			<xsl:apply-templates select="." mode="attributes"/>
@@ -58,7 +60,7 @@
 	<xsl:template match="xs:complexType[xs:simpleContent/xs:extension]">
 		<xsl:param name="name" select="@name|../@name"/>
 		<xsl:comment>
-			<xsl:text>xs:complexType[xs:simpleContent/xs:extension]</xsl:text>
+			<xsl:text>match="xs:complexType[xs:simpleContent/xs:extension]"</xsl:text>
 		</xsl:comment>
 		<div class="{local-name()} {$name}">
 			<xsl:apply-templates select="." mode="attributes"/>
@@ -79,14 +81,14 @@
 	</xsl:template>
 	<xsl:template match="xs:simpleContent">
 		<xsl:comment>
-			<xsl:text>xs:simpleContent</xsl:text>
+			<xsl:text>match="xs:simpleContent" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
 		<xsl:apply-templates/>
 	</xsl:template>
 	<xsl:template match="xs:extension[@base='xs:string']">
 		<xsl:comment>
-			<xsl:text>xs:extension[@base='xs:string']</xsl:text>
+			<xsl:text>match="xs:extension[@base='xs:string']" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
 		<div class="content">
@@ -96,14 +98,14 @@
 	</xsl:template>
 	<xsl:template match="*[(not(@minOccurs) or @minOccurs=1) and (not(@maxOccurs) or @maxOccurs=1)]" mode="minmax">
 		<xsl:comment>
-			<xsl:text>mode="minmax"</xsl:text>
+			<xsl:text>match="*[(not(@minOccurs) or @minOccurs=1) and (not(@maxOccurs) or @maxOccurs=1)]" mode="minmax" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
 		<xsl:apply-templates select="."/>
 	</xsl:template>
 	<xsl:template match="xs:sequence|xs:choice|xs:all|xs:group">
 		<xsl:comment>
-			<xsl:text>xs:sequence|xs:choice|xs:all|xs:group</xsl:text>
+			<xsl:text>match="xs:sequence|xs:choice|xs:all|xs:group" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
 		<xsl:apply-templates mode="minmax"/>

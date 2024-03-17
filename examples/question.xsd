@@ -1,55 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:df="https://bobanum.github.io/dform" xml:lang="fr">
-    <xs:annotation>
-        <xs:appinfo></xs:appinfo>
-    </xs:annotation>
-    <test>
-        <sous-test/>
-    </test>
+    xmlns:df="https://bobanum.github.io/dform" xml:lang="de">
+    <xs:import namespace="https://bobanum.github.io/dform" schemaLocation="../dform.xsd"/>
     <xs:complexType name="QuestionType">
         <xs:annotation>
-            <xs:documentation xml:lang="en" add="Add" hint="The simplest type of question" />
-            <xs:documentation xml:lang="fr" delete="Question" hint="Type de question le plus simple" />
-            <xs:documentation xml:lang="es" label="Pregunta" hint="El tipo más simple de pregunta" />
-            <xs:documentation xml:lang="it" label="Domanda" hint="Il tipo più semplice di domanda" />
-            <xs:documentation xml:lang="de" label="Frage" hint="Der einfachste Fragetyp" />
+            <xs:documentation xml:lang="en" df:hint="The simplest type of question" />
+            <xs:documentation xml:lang="fr" df:hint="Type de question le plus simple" />
+            <xs:documentation xml:lang="es" df:label="Pregunta" df:hint="El tipo más simple de pregunta" />
+            <xs:documentation xml:lang="it" df:label="Domanda" df:hint="Il tipo più semplice di domanda" />
+            <xs:documentation xml:lang="de" df:label="Frage" df:hint="Der einfachste Fragetyp" />
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="wording" type="xs:string" minOccurs="1" maxOccurs="0">
+            <xs:element name="wording" type="xs:string" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en" label="Wording" hint="The wording of the question" />
-                    <xs:documentation xml:lang="fr" label="Énoncé" hint="L'énoncé de la question" />
-                    <xs:documentation xml:lang="es" label="Enunciado" hint="El enunciado de la pregunta" />
-                    <xs:documentation xml:lang="it" label="Enunciato" hint="L'enunciato della domanda" />
-                    <xs:documentation xml:lang="de" label="Formulierung" hint="Die Formulierung der Frage" />
+                    <xs:documentation xml:lang="en" df:label="Wording" df:hint="The wording of the question" />
+                    <xs:documentation xml:lang="fr" df:label="Énoncé" df:hint="L'énoncé de la question" />
+                    <xs:documentation xml:lang="es" df:label="Enunciado" df:hint="El enunciado de la pregunta" />
+                    <xs:documentation xml:lang="it" df:label="Enunciato" df:hint="L'enunciato della domanda" />
+                    <xs:documentation xml:lang="de" df:label="Formulierung" df:hint="Die Formulierung der Frage" />
                 </xs:annotation>
             </xs:element>
-            <xs:element name="details" type="df:html" minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="details" type="xs:string" minOccurs="0" maxOccurs="unbounded">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en" label="Details" hint="Additional details about the question" />
-                    <xs:documentation xml:lang="fr" label="Détails" hint="Détails supplémentaires sur la question" />
-                    <xs:documentation xml:lang="es" label="Detalles" hint="Detalles adicionales sobre la pregunta" />
-                    <xs:documentation xml:lang="it" label="Dettagli" hint="Dettagli aggiuntivi sulla domanda" />
-                    <xs:documentation xml:lang="de" label="Details" hint="Zusätzliche Details zur Frage" />
+                    <xs:documentation xml:lang="en" df:label="Details" df:hint="Additional details about the question" />
+                    <xs:documentation xml:lang="fr" df:label="Détails" df:hint="Détails supplémentaires sur la question" />
+                    <xs:documentation xml:lang="es" df:label="Detalles" df:hint="Detalles adicionales sobre la pregunta" />
+                    <xs:documentation xml:lang="it" df:label="Dettagli" df:hint="Dettagli aggiuntivi sulla domanda" />
+                    <xs:documentation xml:lang="de" df:label="Details" df:hint="Zusätzliche Details zur Frage" />
                 </xs:annotation>
             </xs:element>
             <xs:element name="footer" type="df:html" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en" label="Footer" hint="Footer of the question" />
-                    <xs:documentation xml:lang="fr" label="Pied de page" hint="Pied de page de la question" />
-                    <xs:documentation xml:lang="es" label="Pie de página" hint="Pie de página de la pregunta" />
-                    <xs:documentation xml:lang="it" label="Piè di pagina" hint="Piè di pagina della domanda" />
-                    <xs:documentation xml:lang="de" label="Fußzeile" hint="Fußzeile der Frage" />
+                    <xs:documentation xml:lang="en" df:label="Footer" df:hint="Footer of the question" />
+                    <xs:documentation xml:lang="fr" df:label="Pied de page" df:hint="Pied de page de la question" />
+                    <xs:documentation xml:lang="es" df:label="Pie de página" df:hint="Pie de página de la pregunta" />
+                    <xs:documentation xml:lang="it" df:label="Piè di pagina" df:hint="Piè di pagina della domanda" />
+                    <xs:documentation xml:lang="de" df:label="Fußzeile" df:hint="Fußzeile der Frage" />
                 </xs:annotation>
             </xs:element>
             <xs:element name="answers">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en" label="Answers" hint="The possible answers to the question" />
-                    <xs:documentation xml:lang="fr" label="Réponses" hint="Les réponses possibles à la question" />
-                    <xs:documentation xml:lang="es" label="Respuestas" hint="Las posibles respuestas a la pregunta" />
-                    <xs:documentation xml:lang="it" label="Risposte" hint="Le possibili risposte alla domanda" />
-                    <xs:documentation xml:lang="de" label="Antworten" hint="Die möglichen Antworten auf die Frage" />
+                    <xs:documentation xml:lang="en" df:label="Answers" df:hint="The possible answers to the question" />
+                    <xs:documentation xml:lang="fr" df:label="Réponses" df:hint="Les réponses possibles à la question" />
+                    <xs:documentation xml:lang="es" df:label="Respuestas" df:hint="Las posibles respuestas a la pregunta" />
+                    <xs:documentation xml:lang="it" df:label="Risposte" df:hint="Le possibili risposte alla domanda" />
+                    <xs:documentation xml:lang="de" df:label="Antworten" df:hint="Die möglichen Antworten auf die Frage" />
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
@@ -57,71 +52,54 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <!-- <xs:element name="form">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="input">
-                            <xs:complexType>
-                                <xs:simpleContent>
-                                    <xs:extension base="xs:string">
-                                        <xs:attribute name="type" type="xs:string"/>
-                                        <xs:attribute name="name" type="xs:string"/>
-                                        <xs:attribute name="id" type="xs:string"/>
-                                    </xs:extension>
-                                </xs:simpleContent>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element> -->
         </xs:sequence>
-        <xs:attribute name="value" type="xs:integer">
+        <xs:attribute name="value" type="xs:integer" use="required">
             <xs:annotation>
-                <xs:documentation xml:lang="en" label="Value" hint="The value of the question">test</xs:documentation>
-                <xs:documentation xml:lang="fr" label="Valeur" hint="La valeur de la question" />
-                <xs:documentation xml:lang="es" label="Valor" hint="El valor de la pregunta" />
-                <xs:documentation xml:lang="it" label="Valore" hint="Il valore della domanda" />
-                <xs:documentation xml:lang="de" label="Wert" hint="Der Wert der Frage" />
+                <xs:documentation xml:lang="en" df:label="Value" df:hint="The value of the question">test</xs:documentation>
+                <xs:documentation xml:lang="fr" df:label="Valeur" df:hint="La valeur de la question" />
+                <xs:documentation xml:lang="es" df:label="Valor" df:hint="El valor de la pregunta" />
+                <xs:documentation xml:lang="it" df:label="Valore" df:hint="Il valore della domanda" />
+                <xs:documentation xml:lang="de" df:label="Wert" df:hint="Der Wert der Frage" />
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="type">
+        <xs:attribute name="type" use="required">
             <xs:annotation>
-                <xs:documentation xml:lang="en" label="Type" hint="The type of the question" />
-                <xs:documentation xml:lang="fr" label="Type" hint="Le type de la question" />
-                <xs:documentation xml:lang="es" label="Tipo" hint="El tipo de la pregunta" />
-                <xs:documentation xml:lang="it" label="Tipo" hint="Il tipo della domanda" />
-                <xs:documentation xml:lang="de" label="Typ" hint="Der Typ der Frage" />
+                <xs:documentation xml:lang="en" df:label="Type" df:hint="The type of the question" />
+                <xs:documentation xml:lang="fr" df:label="Type" df:hint="Le type de la question" />
+                <xs:documentation xml:lang="es" df:label="Tipo" df:hint="El tipo de la pregunta" />
+                <xs:documentation xml:lang="it" df:label="Tipo" df:hint="Il tipo della domanda" />
+                <xs:documentation xml:lang="de" df:label="Typ" df:hint="Der Typ der Frage" />
             </xs:annotation>
             <xs:simpleType>
                 <xs:annotation>
-                    <xs:appinfo appearance="radio"></xs:appinfo>
+                    <xs:appinfo df:appearance="radio"></xs:appinfo>
                 </xs:annotation>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="option1">
                         <xs:annotation>
-                            <xs:documentation xml:lang="en" value="Option 1" label="The first option" />
-                            <xs:documentation xml:lang="fr" value="Option 1" label="La première option" />
-                            <xs:documentation xml:lang="es" value="Opción 1" label="La primera opción" />
-                            <xs:documentation xml:lang="it" value="Opzione 1" label="La prima opzione" />
-                            <xs:documentation xml:lang="de" value="Option 1" label="Die erste Option" />
+                            <xs:documentation xml:lang="en" df:value="Option 1" df:label="The first option" />
+                            <xs:documentation xml:lang="fr" df:value="Option 1" df:label="La première option" />
+                            <xs:documentation xml:lang="es" df:value="Opción 1" df:label="La primera opción" />
+                            <xs:documentation xml:lang="it" df:value="Opzione 1" df:label="La prima opzione" />
+                            <xs:documentation xml:lang="de" df:value="Option 1" df:label="Die erste Option" />
                         </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="option2">
                         <xs:annotation>
-                            <xs:documentation xml:lang="en" value="Option 2" label="The second option" />
-                            <xs:documentation xml:lang="fr" value="Option 2" label="La deuxième option" />
-                            <xs:documentation xml:lang="es" value="Opción 2" label="La segunda opción" />
-                            <xs:documentation xml:lang="it" value="Opzione 2" label="La seconda opzione" />
-                            <xs:documentation xml:lang="de" value="Option 2" label="Die zweite Option" />
+                            <xs:documentation xml:lang="en" df:value="Option 2" df:label="The second option" />
+                            <xs:documentation xml:lang="fr" df:value="Option 2" df:label="La deuxième option" />
+                            <xs:documentation xml:lang="es" df:value="Opción 2" df:label="La segunda opción" />
+                            <xs:documentation xml:lang="it" df:value="Opzione 2" df:label="La seconda opzione" />
+                            <xs:documentation xml:lang="de" df:value="Option 2" df:label="Die zweite Option" />
                         </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="option3">
                         <xs:annotation>
-                            <xs:documentation xml:lang="en" label="The third option" />
-                            <xs:documentation xml:lang="fr" label="La troisième option" />
-                            <xs:documentation xml:lang="es" label="La tercera opción" />
-                            <xs:documentation xml:lang="it" label="La terza opzione" />
-                            <xs:documentation xml:lang="de" label="Die dritte Option" />
+                            <xs:documentation xml:lang="en" df:label="The third option" />
+                            <xs:documentation xml:lang="fr" df:label="La troisième option" />
+                            <xs:documentation xml:lang="es" df:label="La tercera opción" />
+                            <xs:documentation xml:lang="it" df:label="La terza opzione" />
+                            <xs:documentation xml:lang="de" df:label="Die dritte Option" />
                         </xs:annotation>
                     </xs:enumeration>
                 </xs:restriction>
@@ -129,72 +107,80 @@
         </xs:attribute>
         <xs:attribute name="name" type="xs:string">
             <xs:annotation>
-                <xs:documentation xml:lang="en" label="Name" hint="The name of the question" />
-                <xs:documentation xml:lang="fr" label="Nom" hint="Le nom de la question" />
-                <xs:documentation xml:lang="es" label="Nombre" hint="El nombre de la pregunta" />
-                <xs:documentation xml:lang="it" label="Nome" hint="Il nome della domanda" />
-                <xs:documentation xml:lang="de" label="Name" hint="Der Name der Frage" />
+                <xs:documentation xml:lang="en" df:label="Name" df:hint="The name of the question" />
+                <xs:documentation xml:lang="fr" df:label="Nom" df:hint="Le nom de la question" />
+                <xs:documentation xml:lang="es" df:label="Nombre" df:hint="El nombre de la pregunta" />
+                <xs:documentation xml:lang="it" df:label="Nome" df:hint="Il nome della domanda" />
+                <xs:documentation xml:lang="de" df:label="Name" df:hint="Der Name der Frage" />
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="id" type="xs:string">
             <xs:annotation>
-                <xs:documentation xml:lang="en" label="Unique identifier" hint="A unique identifier for the question" />
-                <xs:documentation xml:lang="fr" label="Identifiant unique" hint="Un identifiant unique pour la question" />
-                <xs:documentation xml:lang="es" label="Identificador único" hint="Un identificador único para la pregunta" />
-                <xs:documentation xml:lang="it" label="Identificatore unico" hint="Un identificatore unico per la domanda" />
-                <xs:documentation xml:lang="de" label="Eindeutige Kennung" hint="Eine eindeutige Kennung für die Frage" />
+                <xs:documentation xml:lang="en" df:label="Unique identifier" df:hint="A unique identifier for the question" />
+                <xs:documentation xml:lang="fr" df:label="Identifiant unique" df:hint="Un identifiant unique pour la question" />
+                <xs:documentation xml:lang="es" df:label="Identificador único" df:hint="Un identificador único para la pregunta" />
+                <xs:documentation xml:lang="it" df:label="Identificatore unico" df:hint="Un identificatore unico per la domanda" />
+                <xs:documentation xml:lang="de" df:label="Eindeutige Kennung" df:hint="Eine eindeutige Kennung für die Frage" />
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="difficulty" type="xs:integer">
+        <xs:attribute name="difficulty">
             <xs:annotation>
                 <xs:appinfo df:level="2"></xs:appinfo>
-                <xs:documentation xml:lang="en" label="Difficulty level" hint="A number between 0 and 10" />
-                <xs:documentation xml:lang="fr" label="Niveau de difficulté" hint="Un nombre entre 0 et 10" />
-                <xs:documentation xml:lang="es" label="Nivel de dificultad" hint="Un número entre 0 y 10" />
-                <xs:documentation xml:lang="it" label="Livello di difficoltà" hint="Un numero tra 0 e 10" />
-                <xs:documentation xml:lang="de" label="Schwierigkeitsgrad" hint="Eine Zahl zwischen 0 und 10" />
+                <xs:documentation xml:lang="en" df:label="Difficulty level" df:hint="A number between 0 and 10" />
+                <xs:documentation xml:lang="fr" df:label="Niveau de difficulté" df:hint="Un nombre entre 0 et 10" />
+                <xs:documentation xml:lang="es" df:label="Nivel de dificultad" df:hint="Un número entre 0 y 10" />
+                <xs:documentation xml:lang="it" df:label="Livello di difficoltà" df:hint="Un numero tra 0 e 10" />
+                <xs:documentation xml:lang="de" df:label="Schwierigkeitsgrad" df:hint="Eine Zahl zwischen 0 und 10" />
             </xs:annotation>
-            <xs:restriction base="xs:integer">
-                <xs:minInclusive value="0"/>
-                <xs:maxInclusive value="10"/>
-            </xs:restriction>
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0"/>
+                    <xs:maxInclusive value="10"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="relevance">
-            <xs:restriction base="xs:integer">
-                <xs:minInclusive value="0"/>
-                <xs:maxInclusive value="10"/>
-            </xs:restriction>
             <xs:annotation>
-                <xs:documentation xml:lang="en" label="Relevance" hint="A number between 0 and 10" />
-                <xs:documentation xml:lang="fr" label="Pertinence" hint="Un nombre entre 0 et 10" />
-                <xs:documentation xml:lang="es" label="Pertinencia" hint="Un número entre 0 y 10" />
-                <xs:documentation xml:lang="it" label="Rilevanza" hint="Un numero tra 0 e 10" />
-                <xs:documentation xml:lang="de" label="Relevanz" hint="Eine Zahl zwischen 0 und 10" />
+                <xs:documentation xml:lang="en" df:label="Relevance" df:hint="A number between 0 and 10" />
+                <xs:documentation xml:lang="fr" df:label="Pertinence" df:hint="Un nombre entre 0 et 10" />
+                <xs:documentation xml:lang="es" df:label="Pertinencia" df:hint="Un número entre 0 y 10" />
+                <xs:documentation xml:lang="it" df:label="Rilevanza" df:hint="Un numero tra 0 e 10" />
+                <xs:documentation xml:lang="de" df:label="Relevanz" df:hint="Eine Zahl zwischen 0 und 10" />
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0"/>
+                    <xs:maxInclusive value="10"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="duration" type="xs:integer">
-            <xs:restriction base="xs:integer">
-                <xs:minInclusive value="0"/>
-            </xs:restriction>
+        <xs:attribute name="duration">
             <xs:annotation>
-                <xs:documentation xml:lang="en" label="Duration" hint="Estimated duration in seconds" />
-                <xs:documentation xml:lang="fr" label="Durée" hint="Durée estimée en secondes" />
-                <xs:documentation xml:lang="es" label="Duración" hint="Duración estimada en segundos" />
-                <xs:documentation xml:lang="it" label="Durata" hint="Durata stimata in secondi" />
-                <xs:documentation xml:lang="de" label="Dauer" hint="Geschätzte Dauer in Sekunden" />
+                <xs:documentation xml:lang="en" df:label="Duration" df:hint="Estimated duration in seconds" />
+                <xs:documentation xml:lang="fr" df:label="Durée" df:hint="Durée estimée en secondes" />
+                <xs:documentation xml:lang="es" df:label="Duración" df:hint="Duración estimada en segundos" />
+                <xs:documentation xml:lang="it" df:label="Durata" df:hint="Durata stimata in secondi" />
+                <xs:documentation xml:lang="de" df:label="Dauer" df:hint="Geschätzte Dauer in Sekunden" />
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="keywords" type="xs:string">
-            <xs:restriction>
-                <xs:pattern value="(\w+)(,\s*\w+)*"/>
-            </xs:restriction>
+        <xs:attribute name="keywords">
             <xs:annotation>
-                <xs:documentation xml:lang="en" label="Keywords" hint="A list of keywords" />
-                <xs:documentation xml:lang="fr" label="Mots-clés" hint="Une liste de mots-clés" />
-                <xs:documentation xml:lang="es" label="Palabras clave" hint="Una lista de palabras clave" />
-                <xs:documentation xml:lang="it" label="Parole chiave" hint="Un elenco di parole chiave" />
-                <xs:documentation xml:lang="de" label="Stichworte" hint="Eine Liste von Stichworten" />
+                <xs:documentation xml:lang="en" df:label="Keywords" df:hint="A list of keywords" />
+                <xs:documentation xml:lang="fr" df:label="Mots-clés" df:hint="Une liste de mots-clés" />
+                <xs:documentation xml:lang="es" df:label="Palabras clave" df:hint="Una lista de palabras clave" />
+                <xs:documentation xml:lang="it" df:label="Parole chiave" df:hint="Un elenco di parole chiave" />
+                <xs:documentation xml:lang="de" df:label="Stichworte" df:hint="Eine Liste von Stichworten" />
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(\w+)(,\s*\w+)*"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
     </xs:complexType>
     <xs:complexType name="AnswerType">
@@ -202,11 +188,11 @@
             <xs:extension base="xs:string">
                 <xs:attribute name="type" type="xs:string">
                     <xs:annotation>
-                        <xs:documentation xml:lang="en" label="Type" hint="The type of the answer" />
-                        <xs:documentation xml:lang="fr" label="Type" hint="Le type de la réponse" />
-                        <xs:documentation xml:lang="es" label="Tipo" hint="El tipo de la respuesta" />
-                        <xs:documentation xml:lang="it" label="Tipo" hint="Il tipo della risposta" />
-                        <xs:documentation xml:lang="de" label="Typ" hint="Der Typ der Antwort" />
+                        <xs:documentation xml:lang="en" df:label="Type" df:hint="The type of the answer" />
+                        <xs:documentation xml:lang="fr" df:label="Type" df:hint="Le type de la réponse" />
+                        <xs:documentation xml:lang="es" df:label="Tipo" df:hint="El tipo de la respuesta" />
+                        <xs:documentation xml:lang="it" df:label="Tipo" df:hint="Il tipo della risposta" />
+                        <xs:documentation xml:lang="de" df:label="Typ" df:hint="Der Typ der Antwort" />
                     </xs:annotation>
                 </xs:attribute>
                 <xs:attribute name="white-spaces" type="xs:boolean">
@@ -219,11 +205,11 @@
     </xs:complexType>
     <xs:element name="question" type="QuestionType">
         <xs:annotation>
-            <xs:documentation xml:lang="en" label="Question" hint="The simplest type of question" />
-            <xs:documentation xml:lang="fr" label="Question" hint="Type de question le plus simple" />
-            <xs:documentation xml:lang="es" label="Pregunta" hint="El tipo más simple de pregunta" />
-            <xs:documentation xml:lang="it" label="Domanda" hint="Il tipo più semplice di domanda" />
-            <xs:documentation xml:lang="de" label="Frage" hint="Der einfachste Fragetyp" />
+            <xs:documentation xml:lang="en" df:label="Question" df:hint="The simplest type of question" />
+            <xs:documentation xml:lang="fr" df:label="Question" df:hint="Type de question le plus simple" />
+            <xs:documentation xml:lang="es" df:label="Pregunta" df:hint="El tipo más simple de pregunta" />
+            <xs:documentation xml:lang="it" df:label="Domanda" df:hint="Il tipo più semplice di domanda" />
+            <xs:documentation xml:lang="de" df:label="Frage" df:hint="Der einfachste Fragetyp" />
         </xs:annotation>
     </xs:element>
 

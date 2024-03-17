@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="https://bobanum.github.io/dform">
+    <xs:simpleType name="html">
+        <xs:restriction base="xs:string"></xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -3,7 +3,7 @@
   --hue: 200;
   --sat: 50%;
   --lig: 50%;
-  --red: #8f1c1c;
+  --red: #ff4000;
   --blue: #303075;
 }
 
@@ -56,7 +56,7 @@ header h2 :last-child {
 
 .row, .elements > *, .complexType {
   display: grid;
-  grid-column: 1/-1;
+  grid-column: row;
   grid-template-columns: subgrid;
   background-color: hsl(var(--hue), var(--sat), 50%, 0.1);
   padding: 0.5em;
@@ -68,7 +68,7 @@ form,
 .xsd2form {
   --min: 15ch;
   display: grid;
-  grid-template-columns: [row-start] repeat(auto-fill, [field-start label-start] minmax(var(--min), auto) [label-end input-start] minmax(calc(var(--min) * 2), 1fr) [input-end field-end]) [row-end];
+  grid-template-columns: [row-start] repeat(1, [field-start label-start] minmax(var(--min), auto) [label-end input-start] minmax(calc(var(--min) * 2), 1fr) [input-end field-end]) [row-end];
   gap: 0.25em 0.5em;
   background: none;
   grid-auto-flow: dense;
@@ -211,7 +211,7 @@ button.add {
   border: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-top-width: 0;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 2px -1 1px rgba(0, 0, 0, 0.2);
   border-radius: 0 0 0.5em 0.5em;
   padding: 0em 0.5em;
   margin-left: 1.25em;

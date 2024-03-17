@@ -2,6 +2,7 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:df="https://bobanum.github.io/dform"
 	xmlns="http://www.w3.org/1999/xhtml">
 	<xsl:import href="src_xsl/utils.xsl"/>
 	<xsl:import href="src_xsl/attributes.xsl"/>

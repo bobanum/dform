@@ -8,7 +8,8 @@ class Xsl {
 		const [xmlDoc, xslDoc] = await Promise.all([this.loadDoc(xml), this.loadDoc(this.xslFile)]);
 		const processor = new XSLTProcessor();
 		processor.importStylesheet(xslDoc);
-		xmlDoc.documentElement.setAttribute('xml:lang', 'fr');
+		xmlDoc.documentElement.setAttribute('xml:lang', 'en');
+		xmlDoc.documentElement.removeAttribute('xml:lang');
 		const result = processor.transformToFragment(xmlDoc, document);
 		return result;
 	}

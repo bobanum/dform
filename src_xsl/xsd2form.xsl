@@ -8,6 +8,7 @@
 	<xsl:import href="src_xsl/attributes.xsl"/>
 	<xsl:import href="src_xsl/elements.xsl"/>
 	<xsl:import href="src_xsl/restrictions.xsl"/>
+	<xsl:import href="src_xsl/complexType.xsl"/>
 	<xsl:output method="html" indent="yes"/>
 	<xsl:variable name="lang" select="'fr'"/>
 	<xsl:template match="xs:schema">
@@ -26,58 +27,8 @@
 		<form onsubmit="return Form.submit.apply(this, arguments)" action="" method="post">
 			<div><button>Submit</button></div>
 			<xsl:apply-templates select="xs:element"/>
-			<div style="order:1000;"><button>Submit</button></div>
+			<div style="grid-row:3;grid-column:row"><button>Submit</button></div>
 		</form>
-	</xsl:template>
-	<xsl:template match="xs:complexType">
-		<xsl:param name="name" select="@name|../@name"/>
-		<xsl:comment>
-			<xsl:text>match="xs:complexType"</xsl:text>
-		</xsl:comment>
-		<div class="{local-name()} {$name}">
-			<xsl:apply-templates select="." mode="attributes"/>
-			<xsl:apply-templates select="." mode="contents"/>
-		</div>
-	</xsl:template>
-	<xsl:template match="xs:complexType" mode="attributes">
-		<xsl:param name="name" select="@name|../@name"/>
-		<xsl:comment>
-			<xsl:text>match="xs:complexType" mode="attributes"</xsl:text>
-		</xsl:comment>
-		<div class="attributes">
-			<xsl:apply-templates select="./xs:attribute|xs:simpleContent/xs:extension/xs:attribute"/>
-		</div>
-	</xsl:template>
-	<xsl:template match="xs:complexType" mode="contents">
-		<xsl:param name="name" select="@name|../@name"/>
-		<xsl:comment>
-			<xsl:text>match="xs:complexType" mode="contents"</xsl:text>
-		</xsl:comment>
-		<div class="elements">
-			<xsl:apply-templates select="*[not(self::xs:attribute)]" mode="minmax"/>
-		</div>
-	</xsl:template>
-	<xsl:template match="xs:complexType[xs:simpleContent/xs:extension]">
-		<xsl:param name="name" select="@name|../@name"/>
-		<xsl:comment>
-			<xsl:text>match="xs:complexType[xs:simpleContent/xs:extension]"</xsl:text>
-		</xsl:comment>
-		<div class="{local-name()} {$name}">
-			<xsl:apply-templates select="." mode="attributes"/>
-			<div class="elements yyy">
-				<xsl:apply-templates select="*[not(self::xs:attribute)]" mode="minmax"/>
-			</div>
-		</div>
-	</xsl:template>
-	<xsl:template match="*" mode="attributes">
-		<xsl:comment>
-			<xsl:text>match="*" mode="attributes"</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
-		</xsl:comment>
-		<div class="attributes">
-			<xsl:value-of select="count(xs:attributes)"/>
-			<xsl:apply-templates select="xs:attribute"/>
-		</div>
 	</xsl:template>
 	<xsl:template match="xs:simpleContent">
 		<xsl:comment>
@@ -96,18 +47,24 @@
 			<input type="text" name="contenu"/>
 		</div>
 	</xsl:template>
-	<xsl:template match="*[(not(@minOccurs) or @minOccurs=1) and (not(@maxOccurs) or @maxOccurs=1)]" mode="minmax">
+	<xsl:template match="xs:element[(not(@minOccurs) or @minOccurs=1) and (not(@maxOccurs) or @maxOccurs=1)]" mode="minmax">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="*[(not(@minOccurs) or @minOccurs=1) and (not(@maxOccurs) or @maxOccurs=1)]" mode="minmax" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
-		<xsl:apply-templates select="."/>
+		<xsl:apply-templates select=".">
+			<xsl:with-param name="xpath" select="concat($xpath, '/', @name)"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="xs:sequence|xs:choice|xs:all|xs:group">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:sequence|xs:choice|xs:all|xs:group" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
-		<xsl:apply-templates mode="minmax"/>
+		<xsl:apply-templates mode="minmax">
+			<xsl:with-param name="xpath" select="$xpath"/>
+		</xsl:apply-templates>
 	</xsl:template>
 </xsl:stylesheet>

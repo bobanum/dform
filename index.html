@@ -10,8 +10,23 @@
 		import { Xsl } from './src_js/index.js';
 		const xsl = new Xsl('./src_xsl/xsd2form.xsl');
 		xsl.transform('examples/question.xsd').then(doc => {
-			console.log(doc);
+			let x = doc.children[1];
 			app.appendChild(doc);
+			console.log(x);
+			let bulle = document.body.appendChild(document.createElement('div'));
+			bulle.classList.add('bulle');
+			x.addEventListener('mouseover', e => {
+				e.preventDefault();
+				bulle.textContent = e.target.cloneNode().outerHTML;
+				bulle.style.top = e.clientY + 'px';
+				bulle.style.right = 0 + 'px';
+				e.target.style.outline = '1px solid red';
+			});
+			x.addEventListener('mouseout', e => {
+				e.preventDefault();
+				bulle.textContent = '';
+				e.target.style.outline = 'none';
+			});
 		});
 		import {Form} from './src_js/Form.js';
 		window.Form = Form;

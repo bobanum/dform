@@ -29,32 +29,42 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="xs:element[@type][//xs:complexType[@name = current()/@type]]">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:element[@type][//xs:complexType[@name = current()/@type]]"</xsl:text>
 		</xsl:comment>
 		<xsl:apply-templates select="//xs:complexType[@name = current()/@type]">
-			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="instance" select="."/>
 		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="xs:element[substring-after(@type, ':')='string']">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:element[substring-after(@type, ':')='string']"</xsl:text>
 		</xsl:comment>
 		<div class="element {@name}">
 			<xsl:call-template name="label"/>
-			<input type="text" name="{@name}" placeholder="{@name}">
+			<input type="text" placeholder="{@name}">
+				<xsl:call-template name="name-id">
+					<xsl:with-param name="xpath" select="$xpath"/>
+				</xsl:call-template>
 				<xsl:apply-templates select="xs:restriction"/>
 			</input>
 			<xsl:call-template name="hint"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="xs:element[substring-after(@type, ':')='html']">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:element[substring-after(@type, ':')='html']"</xsl:text>
 		</xsl:comment>
 		<div class="element {@name}">
 			<!-- <xsl:call-template name="label"/> -->
-			<textarea rows="5" cols="30"></textarea>
+			<textarea rows="5" cols="30">
+				<xsl:call-template name="name-id">
+					<xsl:with-param name="xpath" select="$xpath"/>
+				</xsl:call-template>
+			</textarea>
 			<xsl:call-template name="hint"/>
 		</div>
 	</xsl:template>

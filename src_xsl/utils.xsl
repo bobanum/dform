@@ -10,11 +10,15 @@
     |_|\_/_/ \_\_|  |_|___|___/    |_| |___|_|  |_|_| |____/_/ \_\_| |___|___/                                                                               
     -->
 	<xsl:template name="label">
+		<xsl:param name="xpath" />
 		<xsl:comment>
 			<xsl:text>name="label"</xsl:text>
 			<xsl:value-of select="concat(' - {',name(),'}')"/>
 		</xsl:comment>
-		<label for="{@name}">
+		<label>
+			<xsl:attribute name="for">
+				<xsl:value-of select="$xpath" />
+			</xsl:attribute>
 			<xsl:choose>
 				<xsl:when test="not(@use or @use='optional')">
 					<input type="checkbox" name="show" checked="checked"></input>
@@ -29,6 +33,15 @@
 			</xsl:call-template>
 			<xsl:text>:</xsl:text>
 		</label>
+	</xsl:template>
+	<xsl:template name="name-id">
+		<xsl:param name="xpath" />
+		<xsl:attribute name="name">
+			<xsl:value-of select="$xpath" />
+		</xsl:attribute>
+		<xsl:attribute name="id">
+			<xsl:value-of select="$xpath" />
+		</xsl:attribute>
 	</xsl:template>
 	<xsl:template name="hint">
 		<xsl:comment>
@@ -50,7 +63,7 @@
 			<xsl:text>name="documentation"</xsl:text>
 			<xsl:value-of select="concat(' - {',name(),'}')"/>
 			<xsl:value-of select="name()"/>
-		</xsl:comment>		
+		</xsl:comment>
 		<xsl:choose>
 			<xsl:when test="//xs:schema/@xml:lang and xs:annotation/xs:documentation[@xml:lang=//xs:schema/@xml:lang]">
 				<!-- Language found. Take the good one -->
@@ -107,6 +120,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template name="minmax">
+		<xsl:param name="xpath" />
 		<xsl:comment>
 			<xsl:text>name="minmax"</xsl:text>
 			<xsl:value-of select="concat(' - {',name(),'}')"/>
@@ -128,10 +142,11 @@
 		<xsl:if test="$min=1 and $max=1">
 			<xsl:apply-templates select="current()">
 				<xsl:with-param name="name" select="@name" />
+				<xsl:with-param name="xpath" select="$xpath" />
 			</xsl:apply-templates>
 		</xsl:if>
 		<xsl:if test="not($min=1 and $max=1)">
-			<fieldset class="group {local-name()} empty" data-min="{$min}" data-max="{$max}">
+			<fieldset class="group {local-name()}" data-min="{$min}" data-max="{$max}">
 				<legend>
 					<xsl:call-template name="label" />
 				</legend>
@@ -154,11 +169,14 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="*" mode="minmax">
+		<xsl:param name="xpath" />
 		<xsl:comment>
 			<xsl:text>macth="*" mode="minmax"</xsl:text>
 			<xsl:value-of select="concat('{',name(),'}')"/>
 		</xsl:comment>
-		<xsl:call-template name="minmax" />
+		<xsl:call-template name="minmax">
+			<xsl:with-param name="xpath" select="$xpath" />
+		</xsl:call-template>
 	</xsl:template>
 	<xsl:template name="loop">
 		<xsl:param name="start" />
@@ -174,6 +192,36 @@
 				<xsl:with-param name="end" select="$end" />
 			</xsl:call-template>
 		</xsl:if>
+	</xsl:template>
+	<xsl:template name="prefix">
+		<xsl:param name="prefix" select="''" />
+		<xsl:param name="separator" select="'.'" />
+		<xsl:comment>
+			<xsl:text>name="prefix"</xsl:text>
+			<xsl:value-of select="concat(' - {',name(),'}')"/>
+		</xsl:comment>
+
+		<xsl:for-each select="(ancestor::xs:element[@name]|ancestor::xs:complexType[@name])[1]">
+			<xsl:call-template name="prefix">
+				<xsl:with-param name="separator" select="$separator" />
+			</xsl:call-template>
+			<xsl:choose>
+				<xsl:when test="self::xs:complexType">
+					<xsl:variable name="type" select="@name" />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="@name" />
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="type" select="ancestor::xs:complexType[@name][1]/@name" />
+			<xsl:value-of select="//xs:element[@type=$type]/@name" />
+			<xsl:value-of select="$separator" />
+		</xsl:for-each>
+		<!-- <xsl:if test="//xs:element[@type=ancestor::xs:complexType/@name]">
+			<xsl:value-of select="count(ancestor::*[@name])" />
+			<xsl:value-of select="ancestor::*[@name]/@name" />
+		</xsl:if> -->
+		<!-- <xsl:value-of select="@name" /> -->
 	</xsl:template>
 	<!-- Levels of visibility for "basic", "advanced", "expert" modes. may be implemented fully (much) later -->
 	<!-- <xsl:template name="level">

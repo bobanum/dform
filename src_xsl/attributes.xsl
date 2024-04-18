@@ -2,9 +2,23 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:df="https://bobanum.github.io/dform"
 	xmlns="http://www.w3.org/1999/xhtml">
 
 	<!-- FALLBACK -->
+	<xsl:template match="*" mode="attributes" priority="-1">
+		<xsl:param name="xpath" />
+		<xsl:comment>
+			<xsl:text>match="*" mode="attributes"</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}')"/>
+		</xsl:comment>
+		<div class="attributes">
+			<xsl:value-of select="count(xs:attributes)" />
+			<xsl:apply-templates select="xs:attribute">
+				<xsl:with-param name="xpath" select="$xpath" />
+			</xsl:apply-templates>
+		</div>
+	</xsl:template>
 	<xsl:template match="xs:attribute" mode="input">
 		<xsl:comment>
 			<xsl:text>match="xs:attribute" mode="input"</xsl:text>
@@ -18,44 +32,66 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="xs:attribute">
+		<xsl:param name="xpath" />
+		<xsl:variable name="current-xpath" select="concat($xpath, '/@', @name)" />
 		<xsl:comment>
 			<xsl:text>match="xs:attribute"</xsl:text>
 		</xsl:comment>
-		<div class="attribute {@name}">
-			<xsl:call-template name="label" />
-			<xsl:apply-templates select="." mode="input" />
+		<div class="attribute {@name}" data-xpath="{$current-xpath}">
+			<xsl:call-template name="label">
+				<xsl:with-param name="xpath" select="$current-xpath" />
+			</xsl:call-template>
+			<xsl:apply-templates select="." mode="input">
+				<xsl:with-param name="xpath" select="$current-xpath" />
+			</xsl:apply-templates>
 			<xsl:call-template name="hint" />
 		</div>
 	</xsl:template>
 	<xsl:template match="xs:attribute[substring-after(@type, ':')='string']|xs:attribute[xs:simpleType/xs:restriction[substring-after(@base, ':')='string']]" mode="input">
+		<xsl:param name="xpath" />
 		<xsl:comment>
 			<xsl:text>match="xs:attribute[substring-after(@type, ':')='string']" mode="input"</xsl:text>
 		</xsl:comment>
-		<input type="text" name="{@name}" size="1" style="min-width:8ch">
+		<input type="text" size="1" style="min-width:8ch">
+			<xsl:call-template name="name-id">
+				<xsl:with-param name="xpath" select="$xpath" />
+			</xsl:call-template>
 			<xsl:apply-templates select="xs:restriction" />
 		</input>
 	</xsl:template>
 	<xsl:template match="xs:attribute[substring-after(@type, ':')='integer']|xs:attribute[xs:simpleType/xs:restriction[substring-after(@base, ':')='integer']]" mode="input">
+		<xsl:param name="xpath" />
 		<xsl:comment>
 			<xsl:text>match="xs:attribute[substring-after(@type, ':')='integer']|xs:attribute[xs:simpleType/xs:restriction[substring-after(@base, ':')='integer']]" mode="input" priority="1"</xsl:text>
 		</xsl:comment>
-		<input type="number" name="{@name}" size="1" style="min-width:7ch; max-width:12ch;">
+		<input type="number" size="1" style="min-width:7ch; max-width:12ch;">
+			<xsl:call-template name="name-id">
+				<xsl:with-param name="xpath" select="$xpath" />
+			</xsl:call-template>
 			<xsl:apply-templates select="xs:restriction" />
 		</input>
 	</xsl:template>
 	<xsl:template match="xs:attribute[substring-after(@type, ':')='decimal']" mode="input">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:attribute[substring-after(@type, ':')='decimal']" mode="input"</xsl:text>
 		</xsl:comment>
-		<input type="number" name="{@name}">
+		<input type="number">
+			<xsl:call-template name="name-id">
+				<xsl:with-param name="xpath" select="$xpath" />
+			</xsl:call-template>
 			<xsl:apply-templates select="xs:restriction" />
 		</input>
 	</xsl:template>
 	<xsl:template match="xs:attribute[substring-after(@type, ':')='boolean']" mode="input">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:attribute[substring-after(@type, ':')='boolean']" mode="input"</xsl:text>
 		</xsl:comment>
 		<input type="checkbox" name="{@name}">
+			<xsl:call-template name="name-id">
+				<xsl:with-param name="xpath" select="$xpath" />
+			</xsl:call-template>
 			<xsl:apply-templates select="xs:restriction" />
 		</input>
 	</xsl:template>

@@ -29,15 +29,6 @@
                     <xs:documentation xml:lang="de" df:label="Details" df:hint="Zusätzliche Details zur Frage" />
                 </xs:annotation>
             </xs:element>
-            <xs:element name="footer" type="df:html" minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation xml:lang="en" df:label="Footer" df:hint="Footer of the question" />
-                    <xs:documentation xml:lang="fr" df:label="Pied de page" df:hint="Pied de page de la question" />
-                    <xs:documentation xml:lang="es" df:label="Pie de página" df:hint="Pie de página de la pregunta" />
-                    <xs:documentation xml:lang="it" df:label="Piè di pagina" df:hint="Piè di pagina della domanda" />
-                    <xs:documentation xml:lang="de" df:label="Fußzeile" df:hint="Fußzeile der Frage" />
-                </xs:annotation>
-            </xs:element>
             <xs:element name="answers">
                 <xs:annotation>
                     <xs:documentation xml:lang="en" df:label="Answers" df:hint="The possible answers to the question" />
@@ -47,15 +38,24 @@
                     <xs:documentation xml:lang="de" df:label="Antworten" df:hint="Die möglichen Antworten auf die Frage" />
                 </xs:annotation>
                 <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="answer" type="AnswerType" maxOccurs="3"></xs:element>
-                    </xs:sequence>
                 </xs:complexType>
+            </xs:element>
+            <xs:sequence>
+                <xs:element name="answer" type="AnswerType" minOccurs="1" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+            <xs:element name="footer" type="df:html" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en" df:label="Footer" df:hint="Footer of the question" />
+                    <xs:documentation xml:lang="fr" df:label="Pied de page" df:hint="Pied de page de la question" />
+                    <xs:documentation xml:lang="es" df:label="Pie de página" df:hint="Pie de página de la pregunta" />
+                    <xs:documentation xml:lang="it" df:label="Piè di pagina" df:hint="Piè di pagina della domanda" />
+                    <xs:documentation xml:lang="de" df:label="Fußzeile" df:hint="Fußzeile der Frage" />
+                </xs:annotation>
             </xs:element>
         </xs:sequence>
         <xs:attribute name="value" type="xs:integer" use="required">
             <xs:annotation>
-                <xs:documentation xml:lang="en" df:label="Value" df:hint="The value of the question">test</xs:documentation>
+                <xs:documentation xml:lang="en" df:label="Value" df:hint="The value of the question"/>
                 <xs:documentation xml:lang="fr" df:label="Valeur" df:hint="La valeur de la question" />
                 <xs:documentation xml:lang="es" df:label="Valor" df:hint="El valor de la pregunta" />
                 <xs:documentation xml:lang="it" df:label="Valore" df:hint="Il valore della domanda" />

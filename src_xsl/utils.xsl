@@ -138,25 +138,28 @@
 			</xsl:apply-templates>
 		</xsl:if>
 		<xsl:if test="not($min=1 and $max=1)">
-			<fieldset class="group {local-name()}" data-xpath="{$xpath}/{@name}[#]" data-min="{$min}" data-max="{$max}">
+			<fieldset class="group {local-name()}" data-template="{generate-id(.)}" data-xpath="{$xpath}/{@name}" data-min="{$min}" data-max="{$max}">
+				<xsl:if test="$min=0">
+					<xsl:attribute name="disabled" />
+				</xsl:if>
 				<legend>
 					<xsl:call-template name="label" />
 				</legend>
-				<!-- <xsl:if test="$min>0">
+				<xsl:if test="$min>0">
 					<xsl:call-template name="loop">
 						<xsl:with-param name="start" select="1"/>
 						<xsl:with-param name="end" select="$min"/>
 					</xsl:call-template>
-				</xsl:if> -->
+				</xsl:if>
 				<!-- <xsl:if test="$max=-1 or ($min=0 and $max!=0) or $max>$min">
 					<div class="template">
 						<button class="delete" type="button">❌︎</button>
 						<xsl:apply-templates select="current()"/>
 					</div>
 				</xsl:if> -->
-				<button class="add" type="button" data-template="{generate-id(.)}" onclick="Form.addElement.apply(this, arguments)">
+				<!-- <button class="add" type="button" data-template="{generate-id(.)}" onclick="Form.addElement.apply(this, arguments)">
 					<xsl:value-of select="@name" />
-				</button>
+				</button> -->
 			</fieldset>
 		</xsl:if>
 	</xsl:template>

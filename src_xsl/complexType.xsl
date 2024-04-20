@@ -24,26 +24,6 @@
 			</div>
 		</fieldset>
 	</xsl:template>
-	<xsl:template match="xs:complexType" mode="outline">
-		<xsl:param name="instance" select="." />
-		<xsl:param name="xpath" />
-		<xsl:variable name="current-xpath" select="concat($xpath, '/', $instance/@name)" />
-		<xsl:comment>
-			<xsl:text>match="xs:complexType" mode="outline</xsl:text>
-		</xsl:comment>
-		<li>
-			<button data-xpath="{$current-xpath}" onclick="Form.show.apply(this, arguments)">
-				<xsl:call-template name="documentation" />
-			</button>
-		</li>
-		<xsl:apply-templates select="./xs:attribute|xs:simpleContent/xs:extension/xs:attribute" mode="outline">
-			<xsl:with-param name="xpath" select="$current-xpath" />
-		</xsl:apply-templates>
-		<xsl:apply-templates select="*[not(self::xs:attribute)]" mode="outline">
-			<xsl:with-param name="xpath" select="$current-xpath" />
-		</xsl:apply-templates>
-
-	</xsl:template>
 	<xsl:template match="xs:complexType[xs:simpleContent/xs:extension]">
 		<xsl:param name="instance" select="." />
 		<xsl:comment>

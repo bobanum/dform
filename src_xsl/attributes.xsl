@@ -57,17 +57,6 @@
 			<xsl:call-template name="hint" />
 		</fieldset>
 	</xsl:template>
-	<xsl:template match="xs:attribute[not(@use='required')]" mode="outline">
-		<xsl:param name="xpath" />	
-		<xsl:comment>
-			<xsl:text>match="xs:attribute" mode="outline"</xsl:text>
-		</xsl:comment>
-		<li>
-			<button data-xpath="{$xpath}/@{@name}" onclick="Form.show.apply(this, arguments)">
-				<xsl:call-template name="documentation" />
-			</button>
-		</li>
-	</xsl:template>
 	<xsl:template match="xs:attribute[substring-after(@type, ':')='string']|xs:attribute[xs:simpleType/xs:restriction[substring-after(@base, ':')='string']]" mode="input">
 		<xsl:param name="xpath" />
 		<xsl:comment>

@@ -1,4 +1,17 @@
 class Form {
+	
+	static addInstance(templateId, target) {
+		var template = document.getElementById(templateId);
+		var clone = template.firstElementChild.cloneNode(true);
+		clone.appendChild(Form.dom_deleteBtn());
+		var n = target.querySelectorAll(".element").length + 1;
+		var xpath = target.dataset.xpath + "["+n+"]";
+		clone.querySelectorAll("[id]").forEach(el => {
+			el.id = xpath;
+			el.name = xpath;
+		});
+		target.appendChild(clone);
+	}
 	static addElement(e) {
 		var template = document.getElementById(e.currentTarget.dataset.template);
 		var clone = template.firstElementChild.cloneNode(true);
@@ -37,8 +50,16 @@ class Form {
 		document.querySelector("#outline button[data-xpath='"+fieldset.dataset.xpath+"']").disabled = false;
 	}
 	static show(e) {
-		e.currentTarget.disabled = true;
-		document.querySelector("fieldset[data-xpath='"+e.currentTarget.dataset.xpath+"']").disabled = false;
+		debugger;
+		const subject = document.querySelector("fieldset[data-xpath='"+e.currentTarget.dataset.xpath+"']");
+		subject.disabled = false;
+		if (subject.classList.contains("group")) {
+			// subject.querySelector("input, textarea, select").focus();
+			Form.addInstance(subject.dataset.template, subject);
+			if (subject.dataset.max > 0 && subject.children.length >= subject.dataset.max) {
+				e.currentTarget.disabled = true;
+			}
+		}
 	}
 }
 export { Form as default, Form};

@@ -9,6 +9,7 @@
 	<xsl:import href="src_xsl/elements.xsl" />
 	<xsl:import href="src_xsl/restrictions.xsl" />
 	<xsl:import href="src_xsl/complexType.xsl" />
+	<xsl:import href="src_xsl/outline.xsl" />
 	<xsl:output method="html" indent="yes" />
 	<xsl:variable name="lang" select="'fr'" />
 	<xsl:template match="xs:schema">
@@ -17,22 +18,12 @@
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
 		<xsl:call-template name="templates" />
-		<form onsubmit="return Form.submit.apply(this, arguments)" action="" method="post">
-			<button>Submit</button>
+		<form onsubmit="return Form.submit.apply(this, arguments)" action="" method="post" class="xsd2form">
+			<button class="submit">Submit</button>
 			<xsl:apply-templates select="xs:element" />
 			<xsl:call-template name="outline"/>
-			<button>Submit</button>
+			<button class="submit">Submit</button>
 		</form>
-	</xsl:template>
-	<xsl:template name="outline">
-		<xsl:comment>
-			<xsl:text>name="outline"</xsl:text>
-		</xsl:comment>
-		<div id="outline">
-			<ul>
-				<xsl:apply-templates select="xs:element" mode="outline" />
-			</ul>
-		</div>
 	</xsl:template>
 	<xsl:template name="templates">
 		<xsl:comment>

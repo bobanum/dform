@@ -1,24 +1,25 @@
-.row {
-	display: grid;
-	grid-column: row;
-	grid-template-columns: subgrid;
-	background-color: hsl(var(--hue), var(--sat), 50%, .1);
-	padding: .5em;
-	border-radius: .5em;
-	position: relative;
-}
-
 form,
 .xsd2form {
 	--min: 15ch;
+	--nb-cols: 1;
 	display: grid;
-	// grid-template-columns: [row-start] repeat(auto-fill, [field-start label-start] minmax(var(--min), auto) [label-end input-start] minmax(calc(var(--min) * 2), 1fr) [input-end field-end]) [row-end];
-	grid-template-columns: [row-start] repeat(1, [field-start label-start] minmax(var(--min), auto) [label-end input-start] minmax(calc(var(--min) * 2), 1fr) [input-end field-end]) [row-end];
-	gap: .25em .5em;
+	grid-template-columns: 1fr auto;
+	gap: .25em .5ch;
 	background: none;
 	grid-auto-flow: dense;
+
+	> fieldset {
+		@include framed;
+		grid-column: 1;
+		grid-template-columns: [row-start] repeat(var(--nb-cols), [field-start] minmax(var(--min), auto) minmax(calc(var(--min) * 2), 1fr) auto [field-end]) [row-end] !important;
+	}
+
 	* {
 		gap: inherit;
+	}
+
+	> button {
+		grid-column: 1 / -1;
 	}
 
 	div.hint {
@@ -26,7 +27,7 @@ form,
 		font-size: smaller;
 		font-style: italic;
 		position: absolute;
-		background-color: hsl(var(--hue), var(--sat), 40%);
+		background-color: hsl(var(--h), var(--s), 40%);
 		color: white;
 		border-radius: .5em;
 		line-height: 1;
@@ -73,74 +74,107 @@ form,
 	}
 }
 
-fieldset.group {
-	border: none;
-	padding: .25em;
-	gap: .5em;
-	padding-bottom: 1em;
-	box-shadow: none;
-	&:has(legend+.add) {
-		padding: 0;
-		background-color: transparent;
-		justify-items: start;
-		grid-template-columns: 1fr;
-		legend {
-			display: none;
-		}
-		.template {
-			position: relative;
-			display: contents;
-		}
-		.add {
-			position: relative;
-			margin-left: 0;
-			border-radius: .5em;
-			margin-top: .5em;
-			border-width: 1px;
-		}
+label {
+	display: flex;
+	align-items: center;
+	gap: 0;
+}
+
+fieldset {
+	display: grid;
+	&:disabled {
+		display: none !important;
 	}
-	&,
-	& > div {
-		display: grid;
-		grid-template-columns: subgrid;
-		grid-column: 1 / -1;
-	}
-	> .element {
-		padding-left: 1em;
-		position: relative;
-		// border: 1px solid #000f;
+
+	&.group {
+		border: none;
+		padding: .25em;
+		gap: .5em;
+		padding-bottom: 1em;
 		box-shadow: none;
-		grid-template-columns: 1fr;
-		&::before {
-			content: '';
-			cursor: ns-resize;
-			// background-color:#0001;
-			background-image: 
-			linear-gradient(90deg, #fff9, #fff0 50%, #0000 50%,   #0002);
-			width: .5em;
-			position: absolute;
-			left: .15em;
-			top: 0.25em;
-			bottom: 0.25em;
-			
-			border-radius: 1em;
+
+		&:has(legend+.add) {
+			padding: 0;
+			background-color: transparent;
+			justify-items: start;
+			grid-template-columns: 1fr;
+
+			legend {
+				display: none;
+			}
+
+			.template {
+				position: relative;
+				display: contents;
+			}
+
+			.add {
+				position: relative;
+				margin-left: 0;
+				border-radius: .5em;
+				margin-top: .5em;
+				border-width: 1px;
+			}
+		}
+
+		&,
+		& > div {
+			display: grid;
+			grid-template-columns: subgrid;
+			// grid-column: 1 / -1;
+		}
+
+		> .element {
+			padding-left: 1em;
+			position: relative;
+			// border: 1px solid #000f;
+			box-shadow: none;
+			grid-template-columns: 1fr;
+
+			&::before {
+				content: '';
+				cursor: ns-resize;
+				// background-color:#0001;
+				background-image:
+					linear-gradient(90deg, #fff9, #fff0 50%, #0000 50%, #0002);
+				width: .5em;
+				position: absolute;
+				left: .15em;
+				top: 0.25em;
+				bottom: 0.25em;
+
+				border-radius: 1em;
+			}
 		}
 	}
 }
 
 button.delete {
 	--h: 0;
-	--s: 100%;	
+	--s: 100%;
 	@include button;
 	position: absolute;
 	right: -.5em;
 	top: -.25em;
 }
+
+button.icon {
+	font-family: 'Material Symbols Outlined';
+	font-size: 1em;
+	background-color: transparent;
+	padding: 0;
+	border: none;
+	align-self: center;
+}
+
 #templates {
 	display: none;
 }
+
+@import 'outline';
+
 button.add {
-	grid-column: 1 / -1;
+	// grid-column: 1 / -1;
 	justify-self: start;
 	cursor: pointer;
 	background: none;
@@ -153,7 +187,7 @@ button.add {
 	padding: 0em .5em;
 	margin-left: 1.25em;
 	margin-top: -.5em;
-	
+
 	&::before {
 		content: '➕\Fe0E';
 		margin-right: .5ch;
@@ -167,7 +201,7 @@ div.template {
 	position: absolute;
 	box-shadow: none !important;
 	bottom: -.25em;
-	
+
 	&::before {
 		// position: absolute;
 		content: var(--label);
@@ -176,80 +210,8 @@ div.template {
 	}
 }
 
-label + * {
-	grid-column: 2 / -1;
-}
-.complexType {
-	@extend .row;
-	grid-column: 1 / -1;
-	display: grid;
-	grid-template-columns: subgrid;
-	gap: inherit;
-}
-
-.elements {
-	display: contents;
-
-	// grid-column: 1 / -1;
-	> * {
-		@extend .row;
-	}
-	> .element {
-		background-color: transparent;
-		padding: 0;
-	}
-} /* .elements */
-
-// .attributes {
-// 	display: flex;
-// 	flex-wrap: wrap;
-// 	grid-column: 1 / -1;
-// 	gap: .5em 1em;
-// }
-
-// .attribute {
-// 	// @extend .row;
-// 	flex-grow: 1;
-// 	display: flex;
-// 	gap: 1ch;
-
-// 	> input,
-// 	> select {
-// 		&:last-of-type {
-// 			flex-grow: 1;
-// 		}
-// 	}
-// }
-
-.attributes {
-	display: contents;
-	// display: grid;
-	// grid-template-columns: subgrid;
-	// grid-column: row;
-	& > .attribute {
-		--span:1;
-		--rowspan:1;
-		display: grid;
-		grid-template-columns: subgrid;
-		grid-column-end: span calc(var(--span) * 2);
-		grid-row-end: span var(--rowspan);
-		align-items: start;
-		:last-child {
-			grid-column-end: span calc(var(--span) * 2 - 1);
-			justify-self: stretch;
-			grid-row-end: span var(--rowspan);
-		}
-	}
-	&.row {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(10em, auto));
-		grid-column: 1 / -1;
-		> .attribute {
-			display: grid;
-			grid-template-columns: subgrid;
-		}
-	}
-} /* .attributes */
+@import 'elements';
+@import 'attributes';
 
 .group {
 	box-shadow: inset 1px 1px 3px #0003;

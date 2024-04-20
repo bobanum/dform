@@ -105,7 +105,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="name" type="xs:string">
+        <xs:attribute name="name" use="required" type="xs:string">
             <xs:annotation>
                 <xs:documentation xml:lang="en" df:label="Name" df:hint="The name of the question" />
                 <xs:documentation xml:lang="fr" df:label="Nom" df:hint="Le nom de la question" />

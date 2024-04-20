@@ -1,0 +1,9 @@
+.elements {
+	display: contents;
+
+	> .element {
+		@include field;
+		background-color: transparent;
+		padding: 0;
+	}
+}

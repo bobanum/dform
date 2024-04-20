@@ -22,11 +22,11 @@
 		<xsl:comment>
 			<xsl:text>match="xs:element[xs:complexType]"</xsl:text>
 		</xsl:comment>
-		<div class="element">
+		<fieldset class="element">
 			<xsl:call-template name="label"/>
 			<!-- <xsl:value-of select="@name"/> -->
 			<xsl:apply-templates/>
-		</div>
+		</fieldset>
 	</xsl:template>
 	<xsl:template match="xs:element[@type][//xs:complexType[@name = current()/@type]]">
 		<xsl:param name="xpath" />	
@@ -37,12 +37,40 @@
 			<xsl:with-param name="instance" select="."/>
 		</xsl:apply-templates>
 	</xsl:template>
+	<xsl:template match="xs:element" mode="outline">
+		<xsl:param name="xpath" />	
+		<xsl:comment>
+			<xsl:text>match="xs:element" mode="outline"</xsl:text>
+		</xsl:comment>
+		<li>
+			<button data-xpath="{$xpath}" onclick="Form.show.apply(this, arguments)">
+				<xsl:call-template name="documentation"/>
+			</button>
+		</li>
+		<xsl:apply-templates select="//xs:complexType[@name = current()/@type]" mode="outline">
+			<xsl:with-param name="instance" select="."/>
+		</xsl:apply-templates>
+	</xsl:template>
+	<xsl:template match="xs:element[@type][//xs:complexType[@name = current()/@type]]" mode="zzzoutline">
+		<xsl:param name="xpath" />	
+		<xsl:comment>
+			<xsl:text>match="xs:element[@type][//xs:complexType[@name = current()/@type]]" mode="outline"</xsl:text>
+		</xsl:comment>
+		<li>
+			<button data-xpath="{$xpath}" onclick="Form.show.apply(this, arguments)">
+				<xsl:value-of select="@name"/>
+			</button>
+		</li>
+		<xsl:apply-templates select="//xs:complexType[@name = current()/@type]" mode="outline">
+			<xsl:with-param name="instance" select="."/>
+		</xsl:apply-templates>
+	</xsl:template>
 	<xsl:template match="xs:element[substring-after(@type, ':')='string']">
 		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:element[substring-after(@type, ':')='string']"</xsl:text>
 		</xsl:comment>
-		<div class="element {@name}">
+		<fieldset class="element {@name}" data-xpath="{$xpath}">
 			<xsl:call-template name="label"/>
 			<input type="text" placeholder="{@name}">
 				<xsl:call-template name="name-id">
@@ -51,7 +79,7 @@
 				<xsl:apply-templates select="xs:restriction"/>
 			</input>
 			<xsl:call-template name="hint"/>
-		</div>
+		</fieldset>
 	</xsl:template>
 	<xsl:template match="xs:element[substring-after(@type, ':')='html']">
 		<xsl:param name="xpath" />	
@@ -68,12 +96,18 @@
 			<xsl:call-template name="hint"/>
 		</div>
 	</xsl:template>
-	<xsl:template match="xs:element" mode="template">
+	<xsl:template match="xs:element" mode="templatezzz">
+		<xsl:param name="xpath" />	
 		<xsl:comment>
 			<xsl:text>match="xs:element mode=template"</xsl:text>
 		</xsl:comment>
+		<h1>
+			<xsl:value-of select="$xpath"/>
+		</h1>
 		<div class="template">
-			<xsl:apply-templates select="current()"/>
+			<xsl:apply-templates select="current()">
+				<xsl:with-param name="xpath" select="$xpath"/>
+			</xsl:apply-templates>
 		</div>
 	</xsl:template>
 </xsl:stylesheet>

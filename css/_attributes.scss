@@ -1,0 +1,22 @@
+.attributes {
+	display: contents;
+
+	& > .attribute {
+		@include field;
+
+		:last-child {
+			justify-self: stretch;
+		}
+	}
+
+	&.row {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(10em, auto));
+		// grid-column: 1 / -1;
+
+		> .attribute {
+			display: grid;
+			grid-template-columns: subgrid;
+		}
+	}
+}

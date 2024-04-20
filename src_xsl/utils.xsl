@@ -19,14 +19,6 @@
 			<xsl:attribute name="for">
 				<xsl:value-of select="$xpath" />
 			</xsl:attribute>
-			<xsl:choose>
-				<xsl:when test="not(@use or @use='optional')">
-					<input type="checkbox" name="show" checked="checked"></input>
-				</xsl:when>
-				<xsl:otherwise>
-					<input type="checkbox" name="show" disabled="disabled" checked="checked"></input>
-				</xsl:otherwise>
-			</xsl:choose>
 			<xsl:call-template name="documentation">
 				<xsl:with-param name="attribute" select="'label|hint'" />
 				<xsl:with-param name="default" select="@name" />
@@ -57,7 +49,7 @@
 		</div>
 	</xsl:template>
 	<xsl:template name="documentation">
-		<xsl:param name="attribute" />
+		<xsl:param name="attribute" select="'label|hint'" />
 		<xsl:param name="default" select="@name" />
 		<xsl:comment>
 			<xsl:text>name="documentation"</xsl:text>
@@ -146,7 +138,7 @@
 			</xsl:apply-templates>
 		</xsl:if>
 		<xsl:if test="not($min=1 and $max=1)">
-			<fieldset class="group {local-name()}" data-min="{$min}" data-max="{$max}">
+			<fieldset class="group {local-name()}" data-xpath="{$xpath}/{@name}[#]" data-min="{$min}" data-max="{$max}">
 				<legend>
 					<xsl:call-template name="label" />
 				</legend>

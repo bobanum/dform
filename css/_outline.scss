@@ -1,0 +1,28 @@
+#outline {
+	@include framed;
+	font-size: smaller;
+	grid-column: -2;
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	button {
+		display: flex;
+		width: 100%;
+		text-align: left;
+		padding-right: .5ch;
+
+		&::before {
+			content: 'add';
+			font-family: 'Material Symbols Outlined';
+			display: inline-block;
+			height: 100%;
+		}
+
+		&:disabled {
+			display: none;
+		}
+	}
+}

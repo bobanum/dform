@@ -10,8 +10,13 @@ class Xsl {
 		processor.importStylesheet(xslDoc);
 		// xmlDoc.documentElement.setAttribute('xml:lang', 'en');
 		// xmlDoc.documentElement.removeAttribute('xml:lang');
-		const result = processor.transformToFragment(xmlDoc, document);
-		return result;
+		try {
+			const result = processor.transformToFragment(xmlDoc, document);
+			return result;
+		} catch {
+			console.log(processor);
+
+		}
 	}
 	async loadDoc(url) {
 		const response = await fetch(url);

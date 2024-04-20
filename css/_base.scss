@@ -1,3 +1,9 @@
+body {
+	background-color: hsl(var(--h), var(--s), 35%);
+	color: white;
+	margin: 0;
+	padding: 0;
+}
 header {
 	padding: 1em;
 	display: grid;

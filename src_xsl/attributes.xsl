@@ -37,15 +37,36 @@
 		<xsl:comment>
 			<xsl:text>match="xs:attribute"</xsl:text>
 		</xsl:comment>
-		<div class="attribute {@name}" data-xpath="{$current-xpath}">
+		<fieldset class="attribute {@name}" data-xpath="{$current-xpath}">
+			<xsl:if test="not(@use or @use='optional')">
+				<xsl:attribute name="disabled"></xsl:attribute>
+			</xsl:if>
 			<xsl:call-template name="label">
 				<xsl:with-param name="xpath" select="$current-xpath" />
 			</xsl:call-template>
 			<xsl:apply-templates select="." mode="input">
 				<xsl:with-param name="xpath" select="$current-xpath" />
 			</xsl:apply-templates>
+			<xsl:choose>
+				<xsl:when test="not(@use or @use='optional')">
+					<button type="button" class="icon" onclick="Form.hide.apply(this, arguments)">delete</button>
+				</xsl:when>
+				<xsl:otherwise>
+				</xsl:otherwise>
+			</xsl:choose>
 			<xsl:call-template name="hint" />
-		</div>
+		</fieldset>
+	</xsl:template>
+	<xsl:template match="xs:attribute[not(@use='required')]" mode="outline">
+		<xsl:param name="xpath" />	
+		<xsl:comment>
+			<xsl:text>match="xs:attribute" mode="outline"</xsl:text>
+		</xsl:comment>
+		<li>
+			<button data-xpath="{$xpath}/@{@name}" onclick="Form.show.apply(this, arguments)">
+				<xsl:call-template name="documentation" />
+			</button>
+		</li>
 	</xsl:template>
 	<xsl:template match="xs:attribute[substring-after(@type, ':')='string']|xs:attribute[xs:simpleType/xs:restriction[substring-after(@base, ':')='string']]" mode="input">
 		<xsl:param name="xpath" />

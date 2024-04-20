@@ -1,12 +1,36 @@
 html {
-	font-size: 16px;
-	font-family: 'Roboto', sans-serif;
+	font-family: var(--font-texts);
 	line-height: 1.5;
 	color: #333;
-	background-color: hsl(var(--hue), var(--sat), 95%);
+	background-color: hsl(var(--h), var(--s), 95%);
+}
+body {
+	min-height: 100vh;
 }
 *, *::before, *::after {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-headings);
+	line-height: 1;
+}
+fieldset {
+	border: none;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+}
+button {
+	font-family: inherit;
+	font-size: inherit;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+input, button, select, textarea {
+	font: inherit;
 }

@@ -29,7 +29,7 @@
                     <xs:documentation xml:lang="de" df:label="Details" df:hint="Zusätzliche Details zur Frage" />
                 </xs:annotation>
             </xs:element>
-            <xs:element name="answers">
+            <!-- <xs:element name="answers">
                 <xs:annotation>
                     <xs:documentation xml:lang="en" df:label="Answers" df:hint="The possible answers to the question" />
                     <xs:documentation xml:lang="fr" df:label="Réponses" df:hint="Les réponses possibles à la question" />
@@ -39,7 +39,7 @@
                 </xs:annotation>
                 <xs:complexType>
                 </xs:complexType>
-            </xs:element>
+            </xs:element> -->
             <xs:sequence>
                 <xs:element name="answer" type="AnswerType" minOccurs="1" maxOccurs="unbounded"></xs:element>
             </xs:sequence>
@@ -184,6 +184,13 @@
         </xs:attribute>
     </xs:complexType>
     <xs:complexType name="AnswerType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en" df:label="Answer" df:hint="An answer" />
+            <xs:documentation xml:lang="fr" df:label="Réponse" df:hint="Une réponse" />
+            <xs:documentation xml:lang="es" df:label="Respuesta" df:hint="Una respuesta" />
+            <xs:documentation xml:lang="it" df:label="Risposta" df:hint="Una risposta" />
+            <xs:documentation xml:lang="de" df:label="Antwort" df:hint="Eine Antwort" />
+        </xs:annotation>
         <xs:simpleContent>
             <xs:extension base="xs:string">
                 <xs:attribute name="type" type="xs:string">

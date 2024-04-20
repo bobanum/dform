@@ -50,7 +50,7 @@ class Form {
 		document.querySelector("#outline button[data-xpath='"+fieldset.dataset.xpath+"']").disabled = false;
 	}
 	static show(e) {
-		debugger;
+		// debugger;
 		const subject = document.querySelector("fieldset[data-xpath='"+e.currentTarget.dataset.xpath+"']");
 		subject.disabled = false;
 		if (subject.classList.contains("group")) {

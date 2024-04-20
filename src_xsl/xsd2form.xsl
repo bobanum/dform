@@ -20,8 +20,10 @@
 		<xsl:call-template name="templates" />
 		<form onsubmit="return Form.submit.apply(this, arguments)" action="" method="post" class="xsd2form">
 			<button class="submit">Submit</button>
-			<xsl:apply-templates select="xs:element" />
-			<xsl:call-template name="outline"/>
+			<!-- <xsl:apply-templates select="xs:element">
+				<xsl:with-param name="xpath" select="@name" />
+			</xsl:apply-templates> -->
+			<xsl:call-template name="outline" />
 			<button class="submit">Submit</button>
 		</form>
 	</xsl:template>

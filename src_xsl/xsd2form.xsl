@@ -20,9 +20,9 @@
 		<xsl:call-template name="templates" />
 		<form onsubmit="return Form.submit.apply(this, arguments)" action="" method="post" class="xsd2form">
 			<button class="submit">Submit</button>
-			<!-- <xsl:apply-templates select="xs:element">
+			<xsl:apply-templates select="xs:element">
 				<xsl:with-param name="xpath" select="@name" />
-			</xsl:apply-templates> -->
+			</xsl:apply-templates>
 			<xsl:call-template name="outline" />
 			<button class="submit">Submit</button>
 		</form>
@@ -47,14 +47,25 @@
 		<xsl:apply-templates />
 	</xsl:template>
 	<xsl:template match="xs:extension[@base='xs:string']">
+		<xsl:param name="xpath" />
 		<xsl:comment>
 			<xsl:text>match="xs:extension[@base='xs:string']" - </xsl:text>
 			<xsl:value-of select="name()"/>
 		</xsl:comment>
-		<div class="content">
-			<label for="contenu">Contenu:</label>
-			<input type="text" name="contenu" />
-		</div>
+		<fieldset>
+			<div class="fieldset">
+				<xsl:call-template name="label">
+					<xsl:with-param name="xpath" select="$xpath" />
+					<xsl:with-param name="ref" select=".." />
+				 </xsl:call-template>
+				 <input type="text" placeholder="{@name}">
+					<xsl:call-template name="name-id">
+						<xsl:with-param name="xpath" select="$xpath" />
+					</xsl:call-template>
+					<!-- <xsl:apply-templates select="xs:restriction" /> -->
+				</input>
+			</div>
+		</fieldset>
 	</xsl:template>
 	<xsl:template match="xs:element[(not(@minOccurs) or @minOccurs=1) and (not(@maxOccurs) or @maxOccurs=1)]" mode="minmax">
 		<xsl:param name="xpath" />

@@ -25,15 +25,20 @@
 		</fieldset>
 	</xsl:template>
 	<xsl:template match="xs:complexType[xs:simpleContent/xs:extension]">
-		<xsl:param name="instance" select="." />
+		<xsl:param name="xpath" />
+		<xsl:param name="ref" select="current()" />
 		<xsl:comment>
 			<xsl:text>match="xs:complexType[xs:simpleContent/xs:extension]"</xsl:text>
 		</xsl:comment>
-		<div class="{local-name()} {$instance/@name}">
-			<xsl:apply-templates select="." mode="attributes" />
-			<div class="elements">
-				<xsl:apply-templates select="*[not(self::xs:attribute)]" mode="minmax" />
+		<fieldset class="{local-name()} {$ref/@name}" xpath="{$xpath}">
+			<div class="fieldset">
+				<xsl:apply-templates select="$ref/xs:attribute|$ref/xs:simpleContent/xs:extension/xs:attribute">
+					<xsl:with-param name="xpath" select="$xpath" />
+				</xsl:apply-templates>
+				<xsl:apply-templates select="$ref/xs:simpleContent/xs:extension">
+					<xsl:with-param name="xpath" select="$xpath" />
+				</xsl:apply-templates>
 			</div>
-		</div>
+		</fieldset>
 	</xsl:template>
 </xsl:stylesheet>

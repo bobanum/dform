@@ -11,19 +11,21 @@
     -->
 	<xsl:template name="label">
 		<xsl:param name="xpath" />
+		<xsl:param name="attribute" select="'label'" />
+		<xsl:param name="ref" select="current()" />
 		<xsl:comment>
 			<xsl:text>name="label"</xsl:text>
-			<xsl:value-of select="concat(' - {',name(),'}')"/>
+			<xsl:value-of select="concat(' - {',name($ref),'}')"/>
 		</xsl:comment>
 		<label>
 			<xsl:attribute name="for">
 				<xsl:value-of select="$xpath" />
 			</xsl:attribute>
 			<xsl:call-template name="documentation">
-				<xsl:with-param name="attribute" select="'label|hint'" />
+				<xsl:with-param name="attribute" select="$attribute" />
 				<xsl:with-param name="default" select="@name" />
+				<xsl:with-param name="ref" select="$ref" />
 			</xsl:call-template>
-			<xsl:text>:</xsl:text>
 		</label>
 	</xsl:template>
 	<xsl:template name="name-id">
@@ -49,44 +51,51 @@
 		</div>
 	</xsl:template>
 	<xsl:template name="documentation">
+		<xsl:param name="ref" select="current()" />
 		<xsl:param name="attribute" select="'label|hint'" />
-		<xsl:param name="default" select="@name" />
+		<xsl:param name="default" select="$ref/@name" />
 		<xsl:comment>
 			<xsl:text>name="documentation"</xsl:text>
-			<xsl:value-of select="concat(' - {',name(),'}')"/>
-			<xsl:value-of select="name()"/>
+			<xsl:value-of select="concat(' - {',name(),'/',name($ref),'}')"/>
 		</xsl:comment>
 		<xsl:choose>
-			<xsl:when test="//xs:schema/@xml:lang and xs:annotation/xs:documentation[@xml:lang=//xs:schema/@xml:lang]">
+			<xsl:when test="not($ref/xs:annotation/xs:documentation) and //xs:complexType[@name=$ref/@type]">
+				<xsl:call-template name="documentation">
+					<xsl:with-param name="ref" select="//xs:complexType[@name=$ref/@type]" />
+					<xsl:with-param name="attribute" select="$attribute" />
+					<xsl:with-param name="default" select="$default" />
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="/xs:schema/@xml:lang and $ref/xs:annotation/xs:documentation[@xml:lang=//xs:schema/@xml:lang]">
 				<!-- Language found. Take the good one -->
 				<xsl:call-template name="documentation-value">
 					<xsl:with-param name="attribute" select="$attribute" />
 					<xsl:with-param name="default" select="$default" />
-					<xsl:with-param name="documentation" select="xs:annotation/xs:documentation[@xml:lang=//xs:schema/@xml:lang]" />
+					<xsl:with-param name="documentation" select="$ref/xs:annotation/xs:documentation[@xml:lang=/xs:schema/@xml:lang]" />
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="xs:annotation/xs:documentation[not(@xml:lang)]">
+			<xsl:when test="$ref/xs:annotation/xs:documentation[not(@xml:lang)]">
 				<!-- Take no lang if exists -->
 				<xsl:call-template name="documentation-value">
 					<xsl:with-param name="attribute" select="$attribute" />
 					<xsl:with-param name="default" select="$default" />
-					<xsl:with-param name="documentation" select="xs:annotation/xs:documentation[not(@xml:lang)]" />
+					<xsl:with-param name="documentation" select="$ref/xs:annotation/xs:documentation[not(@xml:lang)]" />
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="xs:annotation/xs:documentation[@xml:lang='en']">
+			<xsl:when test="$ref/xs:annotation/xs:documentation[@xml:lang='en']">
 				<!-- Language undefined. Take 'en' if exists.  -->
 				<xsl:call-template name="documentation-value">
 					<xsl:with-param name="attribute" select="$attribute" />
 					<xsl:with-param name="default" select="$default" />
-					<xsl:with-param name="documentation" select="xs:annotation/xs:documentation[@xml:lang='en']" />
+					<xsl:with-param name="documentation" select="$ref/xs:annotation/xs:documentation[@xml:lang='en']" />
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="xs:annotation/xs:documentation">
+			<xsl:when test="$ref/xs:annotation/xs:documentation">
 				<!-- Take the first one if exists -->
 				<xsl:call-template name="documentation-value">
 					<xsl:with-param name="attribute" select="$attribute" />
 					<xsl:with-param name="default" select="$default" />
-					<xsl:with-param name="documentation" select="xs:annotation/xs:documentation" />
+					<xsl:with-param name="documentation" select="$ref/xs:annotation/xs:documentation" />
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
@@ -113,9 +122,10 @@
 	</xsl:template>
 	<xsl:template name="minmax">
 		<xsl:param name="xpath" />
+		<xsl:param name="ref" select="current()" />
 		<xsl:comment>
 			<xsl:text>name="minmax"</xsl:text>
-			<xsl:value-of select="concat(' - {',name(),'}')"/>
+			<xsl:value-of select="concat(' - {',name(),'}{',$xpath,'}')"/>
 		</xsl:comment>
 		<xsl:variable name="min" select="number(concat('0',@minOccurs))+not(@minOccurs)*1" />
 		<xsl:variable name="max">
@@ -132,7 +142,7 @@
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:if test="$min=1 and $max=1">
-			<xsl:apply-templates select="current()">
+			<xsl:apply-templates select="$ref">
 				<xsl:with-param name="name" select="@name" />
 				<xsl:with-param name="xpath" select="$xpath" />
 			</xsl:apply-templates>
@@ -145,45 +155,54 @@
 				<legend>
 					<xsl:call-template name="label" />
 				</legend>
-				<xsl:if test="$min>0">
-					<xsl:call-template name="loop">
-						<xsl:with-param name="start" select="1"/>
-						<xsl:with-param name="end" select="$min"/>
-					</xsl:call-template>
-				</xsl:if>
-				<!-- <xsl:if test="$max=-1 or ($min=0 and $max!=0) or $max>$min">
-					<div class="template">
-						<button class="delete" type="button">❌︎</button>
-						<xsl:apply-templates select="current()"/>
-					</div>
-				</xsl:if> -->
-				<!-- <button class="add" type="button" data-template="{generate-id(.)}" onclick="Form.addElement.apply(this, arguments)">
-					<xsl:value-of select="@name" />
-				</button> -->
+				<div class="fieldset">
+					<xsl:if test="$min>0">
+						<xsl:call-template name="loop">
+							<xsl:with-param name="xpath" select="concat($xpath,'/',$ref/@name)" />
+							<xsl:with-param name="end" select="$min" />
+						</xsl:call-template>
+					</xsl:if>
+					<!-- <xsl:if test="$max=-1 or ($min=0 and $max!=0) or $max>$min">
+						<div class="template">
+							<button class="delete" type="button">❌︎</button>
+							<xsl:apply-templates select="current()"/>
+						</div>
+					</xsl:if> -->
+					<!-- <button class="add" type="button" data-template="{generate-id(.)}" onclick="Form.addElement.apply(this, arguments)">
+						<xsl:value-of select="@name" />
+					</button> -->
+				</div>
 			</fieldset>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="*" mode="minmax">
 		<xsl:param name="xpath" />
 		<xsl:comment>
-			<xsl:text>macth="*" mode="minmax"</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
+			<xsl:text>match="*" mode="minmax"</xsl:text>
+			<xsl:value-of select="concat('{',name(),'}{',$xpath,'}')"/>
 		</xsl:comment>
 		<xsl:call-template name="minmax">
 			<xsl:with-param name="xpath" select="$xpath" />
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template name="loop">
-		<xsl:param name="start" />
+		<xsl:param name="xpath" />
+		<xsl:param name="start" select="1" />
 		<xsl:param name="end" />
+		<xsl:param name="step" select="1" />
+		<xsl:param name="ref" select="current()" />
 		<xsl:comment>
 			<xsl:text>name="loop"</xsl:text>
-			<xsl:value-of select="concat(' - {',name(),'}')"/>
+			<xsl:value-of select="concat(' - {',name($ref),'}{',$xpath,'}')"/>
 		</xsl:comment>
 		<xsl:if test="$start &lt;= $end">
-			<xsl:apply-templates select="current()" />
+			<xsl:apply-templates select="$ref">
+				<xsl:with-param name="name" select="$ref/@name" />
+				<xsl:with-param name="xpath" select="concat($xpath, '[', $start, ']')" />
+			</xsl:apply-templates>
 			<xsl:call-template name="loop">
-				<xsl:with-param name="start" select="$start + 1" />
+				<xsl:with-param name="xpath" select="$xpath" />
+				<xsl:with-param name="start" select="$start + $step" />
 				<xsl:with-param name="end" select="$end" />
 			</xsl:call-template>
 		</xsl:if>

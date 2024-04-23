@@ -1,9 +1,12 @@
-.elements {
-	display: contents;
-
-	> .element {
-		@include field;
-		background-color: transparent;
-		padding: 0;
-	}
+.elements, .attributes {
+	grid-column: row;
 }
+// .elements {
+// 	display: contents;
+
+// 	> .element {
+// 		@include field;
+// 		background-color: transparent;
+// 		padding: 0;
+// 	}
+// }

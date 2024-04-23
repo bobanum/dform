@@ -35,7 +35,7 @@
 	color: #333;
 	padding: .5em;
 	border-radius: .5em;
-	border: 1px solid hsl(var(--h), var(--s), 0%);
+	// border: 1px solid hsl(var(--h), var(--s), 0%);
 }
 .framed {
 	@include framed;

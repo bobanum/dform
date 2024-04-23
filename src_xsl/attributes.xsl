@@ -9,15 +9,16 @@
 	<xsl:template match="*" mode="attributes" priority="-1">
 		<xsl:param name="xpath" />
 		<xsl:comment>
-			<xsl:text>match="*" mode="attributes"</xsl:text>
-			<xsl:value-of select="concat('{',name(),'}')"/>
+			<xsl:text>match="*" mode="attributes" - </xsl:text>
+			<xsl:value-of select="concat('{',name(),'}{',$xpath,'}')"/>
 		</xsl:comment>
-		<div class="attributes">
-			<xsl:value-of select="count(xs:attributes)" />
-			<xsl:apply-templates select="xs:attribute">
-				<xsl:with-param name="xpath" select="$xpath" />
-			</xsl:apply-templates>
-		</div>
+		<xsl:if test="xs:attribute">
+			<div class="attributes">
+				<xsl:apply-templates select="xs:attribute">
+					<xsl:with-param name="xpath" select="$xpath" />
+				</xsl:apply-templates>
+			</div>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="xs:attribute" mode="input">
 		<xsl:comment>
@@ -41,12 +42,14 @@
 			<xsl:if test="not(@use or @use='optional')">
 				<xsl:attribute name="disabled"></xsl:attribute>
 			</xsl:if>
-			<xsl:call-template name="label">
-				<xsl:with-param name="xpath" select="$current-xpath" />
-			</xsl:call-template>
-			<xsl:apply-templates select="." mode="input">
-				<xsl:with-param name="xpath" select="$current-xpath" />
-			</xsl:apply-templates>
+			<div class="fieldset">
+				<xsl:call-template name="label">
+					<xsl:with-param name="xpath" select="$current-xpath" />
+				</xsl:call-template>
+				<xsl:apply-templates select="." mode="input">
+					<xsl:with-param name="xpath" select="$current-xpath" />
+				</xsl:apply-templates>
+			</div>
 			<xsl:choose>
 				<xsl:when test="not(@use or @use='optional')">
 					<button type="button" class="icon" onclick="Form.hide.apply(this, arguments)">delete</button>
@@ -54,7 +57,7 @@
 				<xsl:otherwise>
 				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:call-template name="hint" />
+			<!-- <xsl:call-template name="hint" /> -->
 		</fieldset>
 	</xsl:template>
 	<xsl:template match="xs:attribute[substring-after(@type, ':')='string']|xs:attribute[xs:simpleType/xs:restriction[substring-after(@base, ':')='string']]" mode="input">

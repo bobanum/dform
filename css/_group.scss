@@ -1,0 +1,98 @@
+@mixin grip {
+	position: relative;
+
+	&::before {
+		content: '';
+		cursor: ns-resize;
+		background-color:hsl(var(--h), var(--s), 85%);
+		background-image:
+			linear-gradient(90deg, #fff9, #fff0 50%, #0000 50%, #0002);
+		border: 1px outset #0008;
+		width: .5em;
+		border-radius: 1em;
+		position: absolute;
+		top: 0;
+
+		bottom: 0;
+	}
+}
+
+fieldset.group {
+	box-shadow: none;
+	grid-column: row;
+
+	> legend {
+		grid-column: row;
+	}
+
+	> div {
+		display: grid;
+		grid-template-columns: inherit;
+		grid-template-columns: var(--row-columns);
+		gap: 1em .5ch;
+		// @include framed;
+	}
+
+	&:has(legend+.add) {
+		padding: 0;
+		background-color: transparent;
+		justify-items: start;
+		grid-template-columns: 1fr;
+
+		legend {
+			display: none;
+		}
+
+		.template {
+			position: relative;
+			display: contents;
+		}
+
+		.add {
+			position: relative;
+			margin-left: 0;
+			border-radius: .5em;
+			margin-top: .5em;
+			border-width: 1px;
+		}
+	}
+
+	> div.fieldset {
+		display: grid;
+		grid-template-columns: subgrid;
+		// grid-column: 1 / -1;
+	}
+
+	> * > .element {
+		padding-left: 1em;
+		position: relative;
+		// border: 1px solid #000f;
+		box-shadow: none;
+		grid-template-columns: 1fr;
+
+		&::before {
+			content: '';
+			cursor: ns-resize;
+			// background-color:#0001;
+			background-image:
+				linear-gradient(90deg, #fff9, #fff0 50%, #0000 50%, #0002);
+			width: .5em;
+			position: absolute;
+			left: .15em;
+			top: 0.25em;
+			bottom: 0.25em;
+
+			border-radius: 1em;
+		}
+	}
+}
+
+legend + .fieldset > fieldset > .fieldset {
+	grid-column: field;
+	grid-template-columns: 1em var(--field-columns) 1em;
+	@include grip;
+
+	> label {
+		display: none;
+	}
+}

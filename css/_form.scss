@@ -1,20 +1,27 @@
 form.xsd2form {
-	--min: 15ch;
+	--min: 10ch;
 	--nb-cols: 1;
+	--field-columns: [field-start] minmax(var(--min), auto) minmax(calc(var(--min) * 2), 1fr) [field-end];
+	--row-columns: [row-start] repeat(var(--nb-cols), var(--field-columns)) 2em [row-end];
 	display: grid;
 	grid-template-columns: 1fr auto;
 	gap: .25em .5ch;
 	background: none;
 	grid-auto-flow: dense;
 
+	fieldset.test, div.test {
+		@include framed;
+		display: grid;
+		grid-column: 1/-1;
+		grid-template-columns: var(--row-columns);
+	}
+
 	> fieldset {
 		@include framed;
 		grid-column: 1;
-		grid-template-columns: [row-start] repeat(var(--nb-cols), [field-start] minmax(var(--min), auto) minmax(calc(var(--min) * 2), 1fr) auto [field-end]) [row-end] !important;
-	}
-
-	* {
-		gap: inherit;
+		grid-template-columns: var(--row-columns);
+		display: grid;
+		align-self: start;
 	}
 
 	> button {
@@ -51,9 +58,6 @@ form.xsd2form {
 			display: none;
 		}
 
-		// &:not(:active) {
-		// width: 0;
-		// }
 		&::before {
 			position: absolute;
 			top: .05em;
@@ -79,72 +83,19 @@ label {
 	gap: 0;
 }
 
+@import 'group';
+
 fieldset {
-	display: grid;
+	display: contents;
+	border: none;
 	&:disabled {
 		display: none !important;
 	}
-
-	&.group {
-		border: none;
-		padding: .25em;
-		gap: .5em;
-		padding-bottom: 1em;
-		box-shadow: none;
-
-		&:has(legend+.add) {
-			padding: 0;
-			background-color: transparent;
-			justify-items: start;
-			grid-template-columns: 1fr;
-
-			legend {
-				display: none;
-			}
-
-			.template {
-				position: relative;
-				display: contents;
-			}
-
-			.add {
-				position: relative;
-				margin-left: 0;
-				border-radius: .5em;
-				margin-top: .5em;
-				border-width: 1px;
-			}
-		}
-
-		&,
-		& > div {
-			display: grid;
-			grid-template-columns: subgrid;
-			// grid-column: 1 / -1;
-		}
-
-		> .element {
-			padding-left: 1em;
-			position: relative;
-			// border: 1px solid #000f;
-			box-shadow: none;
-			grid-template-columns: 1fr;
-
-			&::before {
-				content: '';
-				cursor: ns-resize;
-				// background-color:#0001;
-				background-image:
-					linear-gradient(90deg, #fff9, #fff0 50%, #0000 50%, #0002);
-				width: .5em;
-				position: absolute;
-				left: .15em;
-				top: 0.25em;
-				bottom: 0.25em;
-
-				border-radius: 1em;
-			}
-		}
+	> div {
+		display: grid;
+		grid-column: field;
+		grid-template-columns: subgrid;
+	
 	}
 }
 
@@ -211,12 +162,3 @@ div.template {
 
 @import 'elements';
 @import 'attributes';
-
-.group {
-	box-shadow: inset 1px 1px 3px #0003;
-	background-color: #fff8;
-
-	> div {
-		box-shadow: 1px 1px 2px #0003;
-	}
-}

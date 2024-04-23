@@ -10,7 +10,7 @@ class Form {
 			el.id = xpath;
 			el.name = xpath;
 		});
-		target.appendChild(clone);
+		target.querySelector('div').appendChild(clone);
 	}
 	static addElement(e) {
 		var template = document.getElementById(e.currentTarget.dataset.template);
@@ -26,7 +26,6 @@ class Form {
 	}
 	static dom_deleteBtn() {
 		var result = document.createElement("button");
-		result.textContent = "❌︎";
 		result.classList.add("delete");
 		result.addEventListener("click", e => {
 			result.parentNode.remove();
@@ -59,7 +58,10 @@ class Form {
 			if (subject.dataset.max > 0 && subject.children.length >= subject.dataset.max) {
 				e.currentTarget.disabled = true;
 			}
+		} else {
+			e.currentTarget.disabled = true;
 		}
+
 	}
 }
 export { Form as default, Form};

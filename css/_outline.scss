@@ -5,7 +5,9 @@
 
 	ul {
 		list-style-type: none;
-		padding-left: 2ch;
+		ul {
+			padding-left: 1.5ch;
+		}
 	}
 
 	button {

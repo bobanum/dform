@@ -72,7 +72,9 @@
 			<xsl:text>match="xs:restriction[xs:enumeration]" mode="buttons"</xsl:text>
 		</xsl:comment>
 		<fieldset class="buttons">
-			<xsl:apply-templates select="xs:enumeration" mode="buttons"/>
+			<div>
+				<xsl:apply-templates select="xs:enumeration" mode="buttons"/>
+			</div>
 		</fieldset>
 	</xsl:template>
 	<xsl:template match="xs:enumeration" mode="buttons">
